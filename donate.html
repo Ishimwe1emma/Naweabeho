@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Donate | Nawe Abeho Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #111111; scroll-behavior: smooth; line-height: 1.5; }
+    :root {
+      --dark: #0a0a0c; --dark-soft: #1a1a1e; --white: #ffffff; --off-white: #f9f9f9;
+      --accent: #f9b81b; --accent-dark: #e09d0e; --gray-light: #f2f2f2;
+      --shadow-sm: 0 12px 28px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+      --shadow-hover: 0 24px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 768px) { .container { padding: 0 20px; } }
+    
+    /* Donate Button - Hidden on donate page itself */
+    .donate-fixed { display: none; }
+    
+    .navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: #0a0a0c; transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); transform: translateY(0); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .navbar.hidden { transform: translateY(-100%); }
+    .nav-container { width: 100%; max-width: 1600px; margin: 0 auto; padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; position: relative; }
+    @media (max-width: 900px) { .nav-container { padding: 14px 24px; } }
+    .logo { font-size: 1.9rem; font-weight: 800; letter-spacing: 1.5px; color: white; text-decoration: none; white-space: nowrap; }
+    .logo span { color: var(--accent); }
+    @media (max-width: 900px) { .logo { font-size: 1.5rem; } }
+    .nav-menu { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-item { position: static; }
+    .nav-link-with-arrow { color: white; text-decoration: none; font-weight: 600; font-size: 1rem; transition: color 0.2s ease; padding: 7px 0; display: inline-flex; align-items: center; gap: 6px; }
+    .nav-link-with-arrow:hover { color: var(--accent); }
+    .dropdown-arrow { font-size: 0.7rem; transition: transform 0.2s ease; display: inline-block; }
+    .nav-item:hover .dropdown-arrow { transform: rotate(180deg); }
+    .btn-outline-light-nav { background: transparent; border: 1.5px solid rgba(255,255,255,0.7); color: white; padding: 6px 18px; border-radius: 40px; font-weight: 600; transition: 0.2s; margin-left: 8px; text-decoration: none; }
+    .btn-outline-light-nav:hover { background: white; color: black; border-color: white; }
+    .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: white; background: none; border: none; }
+    @media (max-width: 900px) { .menu-toggle { display: block; } .nav-menu { position: fixed; left: -100%; top: 70px; flex-direction: column; background: #0a0a0c; width: 100%; text-align: center; transition: 0.3s; padding: 2rem 0; gap: 1.5rem; z-index: 999; } .nav-menu.active { left: 0; } .mega-dropdown { display: none; } }
+    
+    .mega-dropdown { position: absolute; top: 100%; left: 0; width: 100%; background: #111115; background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(12px); border-top: 1px solid rgba(249,184,27,0.2); border-bottom: 1px solid rgba(249,184,27,0.2); opacity: 0; visibility: hidden; transform: translateY(-15px); transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); z-index: 1001; box-shadow: 0 25px 40px -12px rgba(0,0,0,0.4); }
+    .nav-item:hover .mega-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .mega-container { max-width: 1400px; margin: 0 auto; padding: 40px 40px; display: flex; flex-direction: row; gap: 3rem; flex-wrap: nowrap; justify-content: flex-start; align-items: flex-start; }
+    @media (max-width: 1100px) { .mega-container { flex-wrap: wrap; gap: 2rem; } .mega-col { min-width: 180px; } .mega-col a { white-space: normal; } .mega-col h4 { white-space: normal; } }
+    .mega-col { flex: 0 0 auto; min-width: 200px; display: flex; flex-direction: column; align-items: flex-start; }
+    .mega-col h4 { color: var(--accent); font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; font-weight: 700; white-space: nowrap; }
+    .mega-col a { display: flex; align-items: center; gap: 8px; color: #ddd; text-decoration: none; font-size: 0.9rem; padding: 8px 0; transition: all 0.2s; white-space: nowrap; position: relative; }
+    .mega-col a::before { content: "✓"; color: var(--accent); font-size: 0.85rem; font-weight: bold; opacity: 0; transform: translateX(-8px); transition: all 0.2s ease; display: inline-block; width: 18px; }
+    .mega-col a:hover::before { opacity: 1; transform: translateX(0); }
+    .mega-col a:hover { color: var(--accent); transform: translateX(5px); }
+    .mega-feature { background: rgba(249,184,27,0.08); border-radius: 16px; padding: 20px; margin-top: 10px; white-space: normal; }
+    .mega-feature p { color: #ccc; font-size: 0.85rem; white-space: normal; }
+    
+    /* Donate Hero Section */
+    .donate-hero {
+      background: linear-gradient(135deg, #0a0a0c 0%, #1a1a1e 100%);
+      padding: 160px 0 80px;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 80px;
+    }
+    .donate-hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 60%;
+      height: 140%;
+      background: radial-gradient(circle, rgba(249,184,27,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .donate-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 50%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(249,184,27,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .donate-hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; position: relative; z-index: 2; }
+    .donate-hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; position: relative; z-index: 2; }
+    @media (max-width: 900px) { .donate-hero { margin-top: 70px; padding: 120px 0 60px; } .donate-hero h1 { font-size: 2.5rem; } }
+    
+    /* Donation Form Section */
+    .donation-section { padding: 60px 0; }
+    .donation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    @media (max-width: 900px) { .donation-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    
+    /* Donation Cards */
+    .donation-card { background: white; border-radius: 32px; padding: 2rem; box-shadow: var(--shadow-sm); border: 1px solid #f0f0f0; transition: all 0.3s ease; }
+    .donation-card:hover { box-shadow: var(--shadow-hover); }
+    .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; position: relative; display: inline-block; }
+    .card-title:after { content: ''; position: absolute; bottom: -8px; left: 0; width: 50px; height: 3px; background: var(--accent); }
+    
+    /* Amount Buttons */
+    .amount-buttons { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .amount-btn { background: var(--off-white); border: 2px solid transparent; padding: 12px 24px; border-radius: 60px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.2s ease; color: #333; }
+    .amount-btn:hover { background: var(--accent); transform: translateY(-2px); }
+    .amount-btn.active { background: var(--accent); border-color: var(--accent-dark); color: #000; }
+    .custom-amount { display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; }
+    .currency { font-size: 1.2rem; font-weight: 700; }
+    .custom-input { flex: 1; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 60px; font-size: 1rem; outline: none; transition: border 0.2s; }
+    .custom-input:focus { border-color: var(--accent); }
+    
+    /* Form Group */
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 16px; font-size: 1rem; transition: all 0.2s; outline: none; font-family: inherit; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(249,184,27,0.1); }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 500px) { .row-2 { grid-template-columns: 1fr; } }
+    
+    /* Payment Methods */
+    .payment-methods { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .payment-option { flex: 1; text-align: center; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 20px; cursor: pointer; transition: all 0.2s; background: white; }
+    .payment-option:hover { border-color: var(--accent); }
+    .payment-option.active { border-color: var(--accent); background: rgba(249,184,27,0.05); }
+    .payment-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .payment-option span { font-size: 0.85rem; font-weight: 600; }
+    
+    /* Donate Button */
+    .donate-btn { width: 100%; background: var(--accent); color: #000; border: none; padding: 16px; border-radius: 60px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; margin-top: 1rem; }
+    .donate-btn:hover { background: #e0a800; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    
+    /* Impact Cards */
+    .impact-card { background: white; border-radius: 32px; padding: 2rem; box-shadow: var(--shadow-sm); border: 1px solid #f0f0f0; text-align: center; margin-bottom: 2rem; }
+    .impact-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .impact-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .impact-card p { color: #666; font-size: 0.9rem; }
+    
+    .impact-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .impact-stat { background: var(--off-white); padding: 1rem; border-radius: 20px; text-align: center; }
+    .impact-stat .number { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+    .impact-stat .label { font-size: 0.75rem; color: #666; }
+    
+    .testimonial-box { background: linear-gradient(135deg, var(--off-white) 0%, #fff5e0 100%); border-radius: 24px; padding: 1.5rem; margin-top: 1.5rem; border-left: 4px solid var(--accent); }
+    .testimonial-text { font-style: italic; margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .testimonial-author { font-weight: 700; color: var(--accent); font-size: 0.85rem; }
+    
+    /* FAQ Section */
+    .faq-section { background: var(--off-white); padding: 60px 0; margin-top: 60px; }
+    .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+    @media (max-width: 768px) { .faq-grid { grid-template-columns: 1fr; } }
+    .faq-item { background: white; border-radius: 20px; padding: 1.5rem; transition: all 0.3s ease; }
+    .faq-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-sm); }
+    .faq-question { font-weight: 700; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .faq-question i { transition: transform 0.3s; }
+    .faq-item.active .faq-question i { transform: rotate(180deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: #666; font-size: 0.9rem; line-height: 1.6; }
+    .faq-item.active .faq-answer { max-height: 200px; margin-top: 1rem; }
+    
+    footer { background: var(--dark); color: #ccc; padding: 60px 0 30px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+    @media (max-width: 768px) { .footer-grid { gap: 2rem; } }
+    .footer-col h4 { color: white; font-weight: 700; margin-bottom: 1.2rem; }
+    .footer-col a { display: block; color: #bbb; text-decoration: none; margin-bottom: 12px; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent); }
+    .newsletter { background: #1e1e24; border-radius: 20px; padding: 24px; margin-top: 20px; }
+    .newsletter input { padding: 12px 16px; border-radius: 60px; border: none; width: 70%; margin-right: 8px; }
+    @media (max-width: 768px) { .newsletter input { width: 100%; margin-right: 0; margin-bottom: 10px; } .newsletter div { flex-direction: column; } }
+    .btn-small { background: var(--accent); border: none; padding: 12px 20px; border-radius: 60px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; }
+    .btn-small:hover { background: #e0a800; transform: scale(1.02); }
+    .copyright { text-align: center; border-top: 1px solid #2c2c34; padding-top: 2rem; font-size: 0.8rem; }
+    
+    .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="logo" style="display:flex; flex-direction:column; align-items:flex-start; line-height:1;">
+      <img src="logo.png" alt="Logo" style="height:50px; width:auto; margin-bottom:6px;">
+      <span style="font-size:1rem; font-weight:700; color:white;">Nawe <span style="color: var(--accent);">Abeho</span> Foundation</span>
+    </a>
+    <button class="menu-toggle" id="mobileMenuBtn">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">About <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>WHO WE ARE</h4><a href="mission.html">Our Mission</a><a href="team.html">Our Team & Board</a><a href="story.html">Our Story & Journey</a><a href="partners.html">Partners & Supporters</a></div><div class="mega-col"><h4>OUR COMMITMENT</h4><a href="health.html">Children’s Health & Care</a><a href="congenital.html">Congenital Conditions Support</a><a href="inclusion.html">Disability Inclusion</a><a href="family.html">Family Support & Counseling</a></div><div class="mega-col"><h4>TRANSPARENCY</h4><a href="reports.html">Annual Reports</a><a href="financial.html">Financial Statements</a><a href="policies.html">Policies & Guidelines</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Programs <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR PROGRAMS</h4><a href="medical.html">Medical Support & Referrals</a><a href="rehab.html">Rehabilitation Services</a><a href="education.html">Inclusive Education Support</a><a href="awareness.html">Community Awareness</a></div><div class="mega-col"><h4>FAMILY SERVICES</h4><a href="counseling.html">Parent Counseling</a><a href="nutrition.html">Nutrition & Growth Support</a><a href="psychosocial.html">Psychosocial Care</a></div><div class="mega-col"><h4>PARTNERSHIPS</h4><a href="hospitals.html">Hospitals & Specialists</a><a href="workers.html">Community Health Workers</a><a href="network.html">International Support Network</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Impact <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR IMPACT</h4><a href="children-supported.html">Children Supported</a><a href="healthcare-access.html">Healthcare Access</a><a href="outreach.html">Community Outreach</a></div><div class="mega-col"><h4>RESEARCH & RESOURCES</h4><a href="awareness-research.html">Congenital Conditions Awareness</a><a href="inclusion-resources.html">Disability Inclusion Resources</a><a href="guides.html">Family Support Guides</a></div><div class="mega-col"><h4>MONITORING</h4><a href="impact-reports.html">Impact Reports</a><a href="case-studies.html">Case Studies</a><a href="success-stories.html">Success Stories</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Stories <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>LATEST STORIES</h4><a href="healing-journeys.html">Children’s Healing Journeys</a><a href="family-voices.html">Family Voices</a><a href="champions.html">Community Champions</a><a href="inclusion-stories.html">Disability Inclusion Stories</a></div><div class="mega-col"><h4>OUR WORK</h4><a href="outreach-visits.html">Health Outreach Visits</a><a href="rehab-support.html">Rehabilitation Support</a><a href="hospital-partners.html">Hospital Partnerships</a></div><div class="mega-col"><h4>NEWS & BLOG</h4><a href="updates.html">Updates & Announcements</a><a href="articles.html">Awareness Articles</a><a href="parent-education.html">Parent Education</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">News <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>MEDIA & UPDATES</h4><a href="press.html">Press Releases</a><a href="events.html">Events & Campaigns</a><a href="outreach-updates.html">Community Outreach Updates</a></div><div class="mega-col"><h4>ANNOUNCEMENTS</h4><a href="new-partnerships.html">New Partnerships</a><a href="volunteer.html">Volunteer Opportunities</a><a href="support-donations.html">Support & Donations</a></div><div class="mega-col"><h4>NEWSLETTER</h4><a href="subscribe.html">Subscribe for Updates</a><a href="previous-updates.html">Previous Updates</a></div></div></div></li>
+      <li><a href="contact.html" class="btn-outline-light-nav">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="donate-hero">
+  <div class="container">
+    <h1>Your Gift Changes Lives</h1>
+    <p>Every donation helps us provide medical care, rehabilitation, education, and support to children with congenital conditions.</p>
+  </div>
+</section>
+
+<div class="donation-section">
+  <div class="container">
+    <div class="donation-grid">
+      <!-- Donation Form Column -->
+      <div class="donation-card fade-up">
+        <h2 class="card-title">Make a Donation</h2>
+        
+        <div class="amount-buttons">
+          <button class="amount-btn" data-amount="25">$25</button>
+          <button class="amount-btn" data-amount="50">$50</button>
+          <button class="amount-btn" data-amount="100">$100</button>
+          <button class="amount-btn" data-amount="250">$250</button>
+          <button class="amount-btn" data-amount="500">$500</button>
+        </div>
+        
+        <div class="custom-amount">
+          <span class="currency">$</span>
+          <input type="number" class="custom-input" id="customAmount" placeholder="Custom amount" min="1">
+        </div>
+        
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="fullName" placeholder="Enter your full name">
+        </div>
+        
+        <div class="row-2">
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="email" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" placeholder="+250 782 207 002">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Donation Frequency</label>
+          <select id="frequency">
+            <option value="one-time">One-time Donation</option>
+            <option value="monthly">Monthly Donation</option>
+            <option value="yearly">Yearly Donation</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Dedicate my donation in honor of (optional)</label>
+          <input type="text" id="dedication" placeholder="Someone special">
+        </div>
+        
+        <div class="form-group">
+          <label>Leave a message (optional)</label>
+          <textarea id="message" rows="3" placeholder="I want to support because..."></textarea>
+        </div>
+        
+        <div class="payment-methods">
+          <div class="payment-option active" data-method="card">
+            <div class="payment-icon">💳</div>
+            <span>Credit Card</span>
+          </div>
+          <div class="payment-option" data-method="paypal">
+            <div class="payment-icon">🅿️</div>
+            <span>PayPal</span>
+          </div>
+          <div class="payment-option" data-method="bank">
+            <div class="payment-icon">🏦</div>
+            <span>Bank Transfer</span>
+          </div>
+          <div class="payment-option" data-method="mobile">
+            <div class="payment-icon">📱</div>
+            <span>Mobile Money</span>
+          </div>
+        </div>
+        
+        <button class="donate-btn" id="donateBtn">Donate Now →</button>
+        
+        <p style="text-align: center; font-size: 0.75rem; color: #888; margin-top: 1rem;">
+          <i class="fas fa-lock"></i> Secure donation. 100% of your gift supports our programs.
+        </p>
+      </div>
+      
+      <!-- Impact Information Column -->
+      <div>
+        <div class="impact-card fade-up">
+          <div class="impact-icon">💛</div>
+          <h3>Your Impact Today</h3>
+          <p>Your donation directly supports children with congenital conditions and their families.</p>
+          <div class="impact-stats">
+            <div class="impact-stat"><div class="number">$25</div><div class="label">Provides medical supplies for one child</div></div>
+            <div class="impact-stat"><div class="number">$50</div><div class="label">Funds a therapy session</div></div>
+            <div class="impact-stat"><div class="number">$100</div><div class="label">Supports a child's surgery</div></div>
+            <div class="impact-stat"><div class="number">$250</div><div class="label">Provides assistive devices</div></div>
+          </div>
+        </div>
+        
+        <div class="impact-card fade-up">
+          <div class="impact-icon">🌟</div>
+          <h3>Where Your Money Goes</h3>
+          <div style="margin: 1rem 0;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>Medical Care & Surgeries</span><span style="font-weight:700;">45%</span></div>
+            <div style="height: 8px; background: #e0e0e0; border-radius: 4px;"><div style="width:45%; height:8px; background: var(--accent); border-radius:4px;"></div></div>
+            <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;"><span>Rehabilitation & Therapy</span><span style="font-weight:700;">25%</span></div>
+            <div style="height: 8px; background: #e0e0e0; border-radius: 4px;"><div style="width:25%; height:8px; background: var(--accent); border-radius:4px;"></div></div>
+            <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;"><span>Education & Inclusion</span><span style="font-weight:700;">20%</span></div>
+            <div style="height: 8px; background: #e0e0e0; border-radius: 4px;"><div style="width:20%; height:8px; background: var(--accent); border-radius:4px;"></div></div>
+            <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;"><span>Operations & Outreach</span><span style="font-weight:700;">10%</span></div>
+            <div style="height: 8px; background: #e0e0e0; border-radius: 4px;"><div style="width:10%; height:8px; background: var(--accent); border-radius:4px;"></div></div>
+          </div>
+        </div>
+        
+        <div class="testimonial-box fade-up">
+          <p class="testimonial-text">"Your donations helped my daughter receive life-changing heart surgery. We are forever grateful."</p>
+          <p class="testimonial-author">— Marie, Mother of Aline</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="faq-section">
+  <div class="container">
+    <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Frequently Asked Questions</h2>
+    <div class="faq-grid">
+      <div class="faq-item"><div class="faq-question">Is my donation tax-deductible? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes, Nawe Abeho Foundation is a registered nonprofit organization. All donations are tax-deductible to the extent allowed by law.</div></div>
+      <div class="faq-item"><div class="faq-question">How much of my donation goes to programs? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">90% of every donation goes directly to our programs and services for children and families.</div></div>
+      <div class="faq-item"><div class="faq-question">Can I make a recurring donation? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes, you can select monthly or yearly donation options to provide sustained support.</div></div>
+      <div class="faq-item"><div class="faq-question">Will I receive a receipt? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes, you will receive an email receipt immediately after your donation.</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h4>About</h4><a href="mission.html">Our mission</a><a href="team.html">Our leadership</a><a href="volunteer.html">Volunteer opportunities</a><a href="press.html">Media & press</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="faq.html">FAQs</a><a href="reports.html">Reports & publications</a><a href="policies.html">Policies</a><a href="guides.html">Caregiver support guide</a></div>
+      <div class="footer-col"><h4>Partners</h4><a href="partners.html">Become a partner</a><a href="medical-partners.html">Medical partnerships</a><a href="donor.html">Donor engagement</a></div>
+      <div class="footer-col"><h4>Connect</h4><a href="contact.html">Contact us</a><a href="events.html">Events & outreach</a><a href="#">YouTube</a><a href="#">LinkedIn</a></div>
+    </div>
+    <div class="newsletter">
+      <h4 style="color:white;">Stay Connected</h4>
+      <p style="margin-bottom: 16px;">Subscribe to receive updates about our programs, outreach campaigns, and ways to support children.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <input type="email" id="newsletterEmail" placeholder="Your email address">
+        <button class="btn-small" id="subscribeBtn">Subscribe →</button>
+      </div>
+    </div>
+    <div class="copyright"><p>© 2026 Nawe Abeho Foundation. All Rights Reserved.</p></div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn'); const navMenu = document.getElementById('navMenu');
+  if (mobileBtn) mobileBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
+  
+  let lastScrollY = window.scrollY; const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { const currentScrollY = window.scrollY; if (currentScrollY > lastScrollY && currentScrollY > 80) navbar.classList.add('hidden'); else navbar.classList.remove('hidden'); lastScrollY = currentScrollY; });
+  
+  // Scroll Animation
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  fadeElements.forEach(el => observer.observe(el));
+  
+  // Amount Button Selection
+  const amountBtns = document.querySelectorAll('.amount-btn');
+  const customAmount = document.getElementById('customAmount');
+  let selectedAmount = 50;
+  
+  amountBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      amountBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedAmount = parseInt(btn.dataset.amount);
+      customAmount.value = '';
+    });
+  });
+  
+  customAmount.addEventListener('input', () => {
+    amountBtns.forEach(b => b.classList.remove('active'));
+    if (customAmount.value) selectedAmount = parseInt(customAmount.value);
+  });
+  
+  // Payment Method Selection
+  const paymentOptions = document.querySelectorAll('.payment-option');
+  paymentOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+      paymentOptions.forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+    });
+  });
+  
+  // FAQ Accordion
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    question.addEventListener('click', () => {
+      item.classList.toggle('active');
+    });
+  });
+  
+  // Donate Button Handler
+  const donateBtn = document.getElementById('donateBtn');
+  donateBtn.addEventListener('click', () => {
+    const name = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const frequency = document.getElementById('frequency').value;
+    
+    if (!name || !email) {
+      alert('Please enter your name and email address.');
+      return;
+    }
+    
+    alert(`Thank you ${name} for your ${frequency} donation of $${selectedAmount}! You will receive a confirmation email at ${email}.`);
+  });
+  
+  // Newsletter Subscribe
+  const subscribeBtn = document.getElementById('subscribeBtn');
+  const newsletterEmail = document.getElementById('newsletterEmail');
+  if (subscribeBtn) {
+    subscribeBtn.addEventListener('click', () => {
+      const email = newsletterEmail.value.trim();
+      if (email) {
+        alert(`Thanks for subscribing! (${email})`);
+        newsletterEmail.value = '';
+      } else {
+        alert('Please enter your email address');
+      }
+    });
+  }
+</script>
+</body>
+</html>

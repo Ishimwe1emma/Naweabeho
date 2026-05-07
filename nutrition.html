@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Nutrition & Growth Support | Nawe Abeho Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #111111; scroll-behavior: smooth; line-height: 1.5; }
+    :root {
+      --dark: #0a0a0c; --dark-soft: #1a1a1e; --white: #ffffff; --off-white: #f9f9f9;
+      --accent: #f9b81b; --accent-dark: #e09d0e; --gray-light: #f2f2f2;
+      --shadow-sm: 0 12px 28px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+      --shadow-hover: 0 24px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+    .donate-fixed { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 1002; background: var(--accent); color: #000; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: 1rem; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.2); transition: all 0.25s ease; cursor: pointer; border: 2px solid rgba(255,255,255,0.3); backdrop-filter: blur(2px); line-height: 1.2; padding: 0 8px; }
+    .donate-fixed:hover { transform: translateY(-50%) scale(1.08); background: #e0a800; }
+    @media (max-width: 768px) { .donate-fixed { width: 56px; height: 56px; right: 16px; font-size: 0.8rem; } }
+    .navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: #0a0a0c; transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); transform: translateY(0); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .navbar.hidden { transform: translateY(-100%); }
+    .nav-container { width: 100%; max-width: 1600px; margin: 0 auto; padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; position: relative; }
+    .logo { font-size: 1.9rem; font-weight: 800; letter-spacing: 1.5px; color: white; text-decoration: none; white-space: nowrap; }
+    .logo span { color: var(--accent); }
+    .nav-menu { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-item { position: static; }
+    .nav-link-with-arrow { color: white; text-decoration: none; font-weight: 600; font-size: 1rem; transition: color 0.2s ease; padding: 7px 0; display: inline-flex; align-items: center; gap: 6px; }
+    .nav-link-with-arrow:hover { color: var(--accent); }
+    .dropdown-arrow { font-size: 0.7rem; transition: transform 0.2s ease; display: inline-block; }
+    .nav-item:hover .dropdown-arrow { transform: rotate(180deg); }
+    .btn-outline-light-nav { background: transparent; border: 1.5px solid rgba(255,255,255,0.7); color: white; padding: 6px 18px; border-radius: 40px; font-weight: 600; transition: 0.2s; margin-left: 8px; text-decoration: none; }
+    .btn-outline-light-nav:hover { background: white; color: black; border-color: white; }
+    .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: white; background: none; border: none; }
+    .mega-dropdown { position: absolute; top: 100%; left: 0; width: 100%; background: #111115; background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(12px); border-top: 1px solid rgba(249,184,27,0.2); border-bottom: 1px solid rgba(249,184,27,0.2); opacity: 0; visibility: hidden; transform: translateY(-15px); transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); z-index: 1001; box-shadow: 0 25px 40px -12px rgba(0,0,0,0.4); }
+    .nav-item:hover .mega-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .mega-container { max-width: 1400px; margin: 0 auto; padding: 40px 40px; display: flex; flex-direction: row; gap: 3rem; flex-wrap: nowrap; justify-content: flex-start; align-items: flex-start; }
+    .mega-col { flex: 0 0 auto; min-width: 200px; display: flex; flex-direction: column; align-items: flex-start; }
+    .mega-col h4 { color: var(--accent); font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; font-weight: 700; white-space: nowrap; }
+    .mega-col a { display: flex; align-items: center; gap: 8px; color: #ddd; text-decoration: none; font-size: 0.9rem; padding: 8px 0; transition: all 0.2s; white-space: nowrap; position: relative; }
+    .mega-col a::before { content: "✓"; color: var(--accent); font-size: 0.85rem; font-weight: bold; opacity: 0; transform: translateX(-8px); transition: all 0.2s ease; display: inline-block; width: 18px; }
+    .mega-col a:hover::before { opacity: 1; transform: translateX(0); }
+    .mega-col a:hover { color: var(--accent); transform: translateX(5px); }
+    .mega-feature { background: rgba(249,184,27,0.08); border-radius: 16px; padding: 20px; margin-top: 10px; white-space: normal; }
+    .mega-feature p { color: #ccc; font-size: 0.85rem; white-space: normal; }
+    
+    /* Hero Section with Background Image */
+    .inner-hero {
+      position: relative;
+      min-height: 85vh;
+      background: linear-gradient(135deg, rgba(10,10,12,0.85) 0%, rgba(26,26,30,0.75) 100%), url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1600&auto=format');
+      background-size: cover;
+      background-position: center 40%;
+      display: flex;
+      align-items: center;
+      color: white;
+      text-align: left;
+      margin-top: 80px;
+    }
+    .inner-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(105deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      padding: 0 32px;
+      animation: fadeUp 0.9s ease-out;
+    }
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .hero-content p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+
+    /* Animation Classes */
+    .fade-left { opacity: 0; transform: translateX(-40px); transition: all 0.8s ease; }
+    .fade-right { opacity: 0; transform: translateX(40px); transition: all 0.8s ease; }
+    .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .fade-left.visible, .fade-right.visible, .fade-up.visible { opacity: 1; transform: translateX(0) translateY(0); }
+
+    .section-title { font-size: 2.4rem; font-weight: 800; margin-bottom: 48px; position: relative; }
+    .section-title:after { content: ''; display: block; width: 70px; height: 4px; background: var(--accent); margin-top: 12px; }
+    
+    /* Stats Banner with Counter */
+    .stats-banner { 
+      background: linear-gradient(135deg, #0a0a0c 0%, #1a1a1e 100%);
+      padding: 80px 0; 
+      text-align: center; 
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .stats-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=800&auto=format');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+    .stats-banner h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: var(--accent); }
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .service-card { background: white; border-radius: 24px; padding: 2rem; transition: all 0.3s ease; border: 1px solid #f0f0f0; text-align: center; }
+    .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); border-color: var(--accent); }
+    .service-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .service-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .service-card p { color: #555; line-height: 1.5; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin: 3rem 0; }
+    
+    /* Photo Gallery Section */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .gallery-item {
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .info-box { 
+      background: linear-gradient(135deg, var(--off-white) 0%, #fff5e0 100%);
+      border-radius: 24px; 
+      padding: 2rem; 
+      margin: 2rem 0; 
+      transition: all 0.3s ease;
+      border-left: 4px solid var(--accent);
+    }
+    .info-box:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+    
+    .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .resource-item { background: white; border-radius: 16px; padding: 1.5rem; transition: all 0.3s ease; border: 1px solid #f0f0f0; }
+    .resource-item:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow-sm); }
+    .resource-item h4 { margin-bottom: 0.5rem; }
+    .resource-item a { color: var(--accent); text-decoration: none; margin-top: 0.5rem; display: inline-block; }
+    
+    .btn-primary { background-color: var(--accent); color: #000; border: none; padding: 12px 32px; font-weight: 700; font-size: 1rem; border-radius: 40px; cursor: pointer; transition: all 0.2s ease; display: inline-block; text-decoration: none; }
+    .btn-primary:hover { background-color: #e0a800; transform: translateY(-2px); }
+    
+    footer { background: var(--dark); color: #ccc; padding: 60px 0 30px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+    .footer-col h4 { color: white; font-weight: 700; margin-bottom: 1.2rem; }
+    .footer-col a { display: block; color: #bbb; text-decoration: none; margin-bottom: 12px; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent); }
+    .newsletter { background: #1e1e24; border-radius: 20px; padding: 24px; margin-top: 20px; }
+    .newsletter input { padding: 12px 16px; border-radius: 60px; border: none; width: 70%; margin-right: 8px; }
+    .btn-small { background: var(--accent); border: none; padding: 12px 20px; border-radius: 60px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; }
+    .btn-small:hover { background: #e0a800; transform: scale(1.02); }
+    .copyright { text-align: center; border-top: 1px solid #2c2c34; padding-top: 2rem; font-size: 0.8rem; }
+    
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+      .menu-toggle { display: block; }
+      .nav-menu { position: fixed; left: -100%; top: 70px; flex-direction: column; background: #0a0a0c; width: 100%; text-align: center; transition: 0.3s; padding: 2rem 0; gap: 1.5rem; z-index: 999; }
+      .nav-menu.active { left: 0; }
+      .mega-dropdown { display: none; }
+      .hero-content h1 { font-size: 2.5rem; }
+      .section-title { font-size: 2rem; }
+      .inner-hero { margin-top: 70px; min-height: 70vh; text-align: center; }
+      .hero-content { text-align: center; }
+      .stats-container { gap: 2rem; }
+      .stat-number { font-size: 2.5rem; }
+      .fade-left, .fade-right { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+<a href="donate.html" class="donate-fixed">DONATE</a>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="logo" style="display:flex; flex-direction:column; align-items:flex-start; line-height:1;">
+      <img src="logo.png" alt="Nawe Abeho Foundation Logo" style="height:50px; width:auto; margin-bottom:6px;">
+      <span style="font-size:1rem; font-weight:700; color:white;">Nawe <span style="color: var(--accent);">Abeho</span> Foundation</span>
+    </a>
+    <button class="menu-toggle" id="mobileMenuBtn">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">About <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>WHO WE ARE</h4><a href="mission.html">Our Mission</a><a href="team.html">Our Team & Board</a><a href="story.html">Our Story & Journey</a><a href="partners.html">Partners & Supporters</a></div><div class="mega-col"><h4>OUR COMMITMENT</h4><a href="health.html">Children’s Health & Care</a><a href="congenital.html">Congenital Conditions Support</a><a href="inclusion.html">Disability Inclusion</a><a href="family.html">Family Support & Counseling</a></div><div class="mega-col"><h4>TRANSPARENCY</h4><a href="reports.html">Annual Reports</a><a href="financial.html">Financial Statements</a><a href="policies.html">Policies & Guidelines</a></div><div class="mega-col"><div class="mega-feature"><p>✨ <strong>Our Vision 2030</strong><br>Ensuring every child with congenital conditions receives care, dignity, and opportunity.</p></div></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Programs <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR PROGRAMS</h4><a href="medical.html">Medical Support & Referrals</a><a href="rehab.html">Rehabilitation Services</a><a href="education.html">Inclusive Education Support</a><a href="awareness.html">Community Awareness</a></div><div class="mega-col"><h4>FAMILY SERVICES</h4><a href="counseling.html">Parent Counseling</a><a href="nutrition.html">Nutrition & Growth Support</a><a href="psychosocial.html">Psychosocial Care</a></div><div class="mega-col"><h4>PARTNERSHIPS</h4><a href="hospitals.html">Hospitals & Specialists</a><a href="workers.html">Community Health Workers</a><a href="network.html">International Support Network</a></div><div class="mega-col"><div class="mega-feature"><p>📘 <strong>Trusted Programs</strong><br>Working with health professionals and community leaders to deliver impact.</p></div></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Impact <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR IMPACT</h4><a href="children-supported.html">Children Supported</a><a href="healthcare-access.html">Healthcare Access</a><a href="outreach.html">Community Outreach</a></div><div class="mega-col"><h4>RESEARCH & RESOURCES</h4><a href="awareness-research.html">Congenital Conditions Awareness</a><a href="inclusion-resources.html">Disability Inclusion Resources</a><a href="guides.html">Family Support Guides</a></div><div class="mega-col"><h4>MONITORING</h4><a href="impact-reports.html">Impact Reports</a><a href="case-studies.html">Case Studies</a><a href="success-stories.html">Success Stories</a></div><div class="mega-col"><div class="mega-feature"><p>📊 <strong>Measurable Results</strong><br>Tracking our progress toward helping 100,000 children by 2030.</p></div></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Stories <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>LATEST STORIES</h4><a href="healing-journeys.html">Children’s Healing Journeys</a><a href="family-voices.html">Family Voices</a><a href="champions.html">Community Champions</a><a href="inclusion-stories.html">Disability Inclusion Stories</a></div><div class="mega-col"><h4>OUR WORK</h4><a href="outreach-visits.html">Health Outreach Visits</a><a href="rehab-support.html">Rehabilitation Support</a><a href="hospital-partners.html">Hospital Partnerships</a></div><div class="mega-col"><h4>NEWS & BLOG</h4><a href="updates.html">Updates & Announcements</a><a href="articles.html">Awareness Articles</a><a href="parent-education.html">Parent Education</a></div><div class="mega-col"><div class="mega-feature"><p>💛 <strong>Real Impact</strong><br>Read inspiring stories of children and families we've supported.</p></div></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">News <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>MEDIA & UPDATES</h4><a href="press.html">Press Releases</a><a href="events.html">Events & Campaigns</a><a href="outreach-updates.html">Community Outreach Updates</a></div><div class="mega-col"><h4>ANNOUNCEMENTS</h4><a href="new-partnerships.html">New Partnerships</a><a href="volunteer.html">Volunteer Opportunities</a><a href="support-donations.html">Support & Donations</a></div><div class="mega-col"><h4>NEWSLETTER</h4><a href="subscribe.html">Subscribe for Updates</a><a href="previous-updates.html">Previous Updates</a></div><div class="mega-col"><div class="mega-feature"><p>📰 <strong>Stay Informed</strong><br>Get the latest news about our work and impact.</p></div></div></div></div></li>
+      <li><a href="contact.html" class="btn-outline-light-nav">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section with Background Image -->
+<section class="inner-hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Nutrition & Growth Support</h1>
+      <p>Specialized nutrition programs to help children with congenital conditions thrive and reach their full potential.</p>
+      <a href="#services" class="btn-primary">Explore Services →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Banner with Counting Effect -->
+<div class="stats-banner">
+  <div class="container">
+    <h2 class="fade-up">Our Nutrition Impact</h2>
+    <div class="stats-container">
+      <div class="stat-item fade-left">
+        <div class="stat-number"><span class="counter" data-target="200">0</span>+</div>
+        <div class="stat-label">Children Supported</div>
+      </div>
+      <div class="stat-item fade-up">
+        <div class="stat-number"><span class="counter" data-target="1500">0</span>+</div>
+        <div class="stat-label">Nutrition Consultations</div>
+      </div>
+      <div class="stat-item fade-right">
+        <div class="stat-number"><span class="counter" data-target="85">0</span>%</div>
+        <div class="stat-label">Improved Growth Outcomes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Nutrition Services -->
+<div class="container" id="services">
+  <h2 class="section-title fade-up">Our Nutrition Services</h2>
+  <div class="services-grid">
+    <div class="service-card fade-left"><div class="service-icon">🍎</div><h3>Nutritional Assessment</h3><p>Comprehensive evaluation of each child's nutritional status, growth patterns, and dietary needs.</p></div>
+    <div class="service-card fade-up"><div class="service-icon">📋</div><h3>Individual Meal Plans</h3><p>Customized nutrition plans designed for children with specific congenital conditions and feeding challenges.</p></div>
+    <div class="service-card fade-right"><div class="service-icon">🥄</div><h3>Feeding Support</h3><p>Specialized assistance for children with feeding difficulties, including tube feeding support when needed.</p></div>
+    <div class="service-card fade-left"><div class="service-icon">💊</div><h3>Supplement Program</h3><p>Providing essential vitamins, minerals, and therapeutic supplements to address nutritional gaps.</p></div>
+    <div class="service-card fade-up"><div class="service-icon">👩‍🍳</div><h3>Parent Education</h3><p>Training for families on nutrition, meal preparation, and feeding techniques for children with special needs.</p></div>
+    <div class="service-card fade-right"><div class="service-icon">📊</div><h3>Growth Monitoring</h3><p>Regular tracking of height, weight, and developmental milestones to ensure optimal growth.</p></div>
+  </div>
+</div>
+
+<!-- Photo Gallery Section -->
+<div class="container">
+  <h2 class="section-title fade-up">Healthy Eating Moments</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item fade-left"><img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&auto=format" alt="Fresh fruits and vegetables"></div>
+    <div class="gallery-item fade-up"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format" alt="Healthy meal preparation"></div>
+    <div class="gallery-item fade-right"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&auto=format" alt="Nutritious food spread"></div>
+  </div>
+</div>
+
+<!-- Why Nutrition Matters Info Box -->
+<div class="container">
+  <div class="info-box fade-up">
+    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">🥗 Why Nutrition Matters</h3>
+    <p style="margin-bottom: 1rem;">Children with congenital conditions often face unique nutritional challenges that can affect their growth, development, and overall health. Our nutrition program addresses these challenges through:</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+      <div><strong>✓ Early Intervention</strong><p>Identifying nutritional risks early</p></div>
+      <div><strong>✓ Specialized Formulas</strong><p>Age-appropriate nutrition plans</p></div>
+      <div><strong>✓ Family-Centered Care</strong><p>Working with parents as partners</p></div>
+      <div><strong>✓ Ongoing Support</strong><p>Regular follow-up and adjustments</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Educational Resources -->
+<div class="container">
+  <h2 class="section-title fade-up">Educational Resources</h2>
+  <div class="resource-grid">
+    <div class="resource-item fade-left"><h4>📘 Feeding Guide for Special Needs</h4><p>Practical tips and techniques for feeding children with congenital conditions.</p><a href="#">Download →</a></div>
+    <div class="resource-item fade-up"><h4>🥗 Healthy Meal Planning</h4><p>Sample meal plans and recipes for children with special dietary needs.</p><a href="#">Download →</a></div>
+    <div class="resource-item fade-up"><h4>📈 Growth Tracking Chart</h4><p>Tools for monitoring your child's growth and development at home.</p><a href="#">Download →</a></div>
+    <div class="resource-item fade-right"><h4>💊 Supplement Guide</h4><p>Information about essential vitamins and supplements for children with congenital conditions.</p><a href="#">Download →</a></div>
+  </div>
+</div>
+
+<!-- Call to Action -->
+<div class="container" style="text-align: center; padding: 60px 0;">
+  <h2 class="fade-up" style="font-size: 2rem; margin-bottom: 1rem;">Support Healthy Growth</h2>
+  <p class="fade-up" style="margin-bottom: 2rem;">Help us provide essential nutrition support to children in need.</p>
+  <a href="donate.html" class="btn-primary fade-up">Support Nutrition Program →</a>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h4>About</h4><a href="mission.html">Our mission</a><a href="team.html">Our leadership</a><a href="volunteer.html">Volunteer opportunities</a><a href="press.html">Media & press</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="faq.html">FAQs</a><a href="reports.html">Reports & publications</a><a href="policies.html">Policies</a><a href="guides.html">Caregiver support guide</a></div>
+      <div class="footer-col"><h4>Partners</h4><a href="partners.html">Become a partner</a><a href="medical-partners.html">Medical partnerships</a><a href="donor.html">Donor engagement</a></div>
+      <div class="footer-col"><h4>Connect</h4><a href="contact.html">Contact us</a><a href="events.html">Events & outreach</a><a href="#">YouTube</a><a href="#">LinkedIn</a></div>
+    </div>
+    <div class="newsletter">
+      <h4 style="color:white;">Stay Connected</h4>
+      <p style="margin-bottom: 16px;">Subscribe to receive updates about our programs, outreach campaigns, and ways to support children living with congenital conditions.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <input type="email" id="newsletterEmail" placeholder="Your email address">
+        <button class="btn-small" id="subscribeBtn">Subscribe →</button>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>© 2026 Nawe Abeho Foundation. All Rights Reserved. | We never ask for money through unofficial channels — report suspicious activity.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn'); const navMenu = document.getElementById('navMenu');
+  if (mobileBtn) mobileBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
+  
+  let lastScrollY = window.scrollY; const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { const currentScrollY = window.scrollY; if (currentScrollY > lastScrollY && currentScrollY > 80) navbar.classList.add('hidden'); else navbar.classList.remove('hidden'); lastScrollY = currentScrollY; });
+  
+  // Scroll Animation Observer
+  const fadeElements = document.querySelectorAll('.fade-left, .fade-right, .fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  fadeElements.forEach(el => observer.observe(el));
+  
+  // Counter Animation
+  const counters = document.querySelectorAll('.counter');
+  let counted = false;
+  
+  function startCounters() {
+    if (counted) return;
+    counted = true;
+    
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target'));
+      let current = 0;
+      const increment = target / 50;
+      const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+          counter.textContent = Math.ceil(current);
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.textContent = target;
+        }
+      };
+      updateCounter();
+    });
+  }
+  
+  // Trigger counters when stats section is visible
+  const statsSection = document.querySelector('.stats-banner');
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startCounters();
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  if (statsSection) statsObserver.observe(statsSection);
+  
+  const subscribeBtn = document.getElementById('subscribeBtn'); const newsletterEmail = document.getElementById('newsletterEmail');
+  if (subscribeBtn) subscribeBtn.addEventListener('click', () => { const email = newsletterEmail.value.trim(); if (email) { newsletterEmail.value = ''; subscribeBtn.textContent = '✓ Subscribed!'; setTimeout(() => { subscribeBtn.textContent = 'Subscribe →'; }, 2000); } });
+</script>
+</body>
+</html>

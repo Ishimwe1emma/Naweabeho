@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Nawe Abeho Foundation | Supporting Children with Congenital Conditions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+
+  <!-- AOS Animation CSS (ADDED ONLY) -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #111111;
+      scroll-behavior: smooth;
+      line-height: 1.5;
+    }
+
+    :root {
+      --dark: #0a0a0c;
+      --dark-soft: #1a1a1e;
+      --white: #ffffff;
+      --off-white: #f9f9f9;
+      --accent: #f9b81b;
+      --accent-dark: #e09d0e;
+      --gray-light: #f2f2f2;
+      --shadow-sm: 0 12px 28px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+      --shadow-hover: 0 24px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ===== FIXED DONATE BUTTON ===== */
+    .donate-fixed {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1002;
+      background: var(--accent);
+      color: #000;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1rem;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(2px);
+      line-height: 1.2;
+      padding: 0 8px;
+    }
+    .donate-fixed:hover {
+      transform: translateY(-50%) scale(1.08);
+      background: #e0a800;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+    }
+    .donate-fixed:active {
+      transform: translateY(-50%) scale(0.98);
+    }
+    @media (max-width: 768px) {
+      .donate-fixed {
+        width: 56px;
+        height: 56px;
+        right: 16px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: #0a0a0c;
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      transform: translateY(0);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .navbar.hidden {
+      transform: translateY(-100%);
+    }
+    .nav-container {
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: white;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .logo span { color: var(--accent); }
+    .nav-menu {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-item {
+      position: static;
+    }
+    .nav-link-with-arrow {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.2s ease;
+      padding: 7px 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-link-with-arrow:hover {
+      color: var(--accent);
+    }
+    .dropdown-arrow {
+      font-size: 0.7rem;
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+    .nav-item:hover .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    .btn-outline-light-nav {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.7);
+      color: white;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: 0.2s;
+      margin-left: 8px;
+      text-decoration: none;
+    }
+    .btn-outline-light-nav:hover {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+      background: none;
+      border: none;
+    }
+
+    /* ===== MEGA DROPDOWN ===== */
+    .mega-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #111115;
+      background: rgba(10, 10, 12, 0.98);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(249,184,27,0.2);
+      border-bottom: 1px solid rgba(249,184,27,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-15px);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      z-index: 1001;
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.4);
+    }
+    .nav-item:hover .mega-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .mega-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 40px;
+      display: flex;
+      flex-direction: row;
+      gap: 3rem;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    .mega-col {
+      flex: 0 0 auto;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .mega-col h4 {
+      color: var(--accent);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .mega-col a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ddd;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 8px 0;
+      transition: all 0.2s;
+      white-space: nowrap;
+      position: relative;
+    }
+    .mega-col a::before {
+      content: "✓";
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: bold;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.2s ease;
+      display: inline-block;
+      width: 18px;
+    }
+    .mega-col a:hover::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .mega-col a:hover {
+      color: var(--accent);
+      transform: translateX(5px);
+    }
+    .mega-feature {
+      background: rgba(249,184,27,0.08);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 10px;
+      white-space: normal;
+    }
+    .mega-feature p {
+      color: #ccc;
+      font-size: 0.85rem;
+      white-space: normal;
+    }
+
+    /* ===== AUTO SLIDING HERO SECTION ===== */
+    .hero-slider {
+      position: relative;
+      min-height: 90vh;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 80px;
+    }
+    .hero-slides {
+      position: relative;
+      width: 100%;
+      height: 90vh;
+    }
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+    .hero-slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(105deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      padding: 0 32px;
+      animation: fadeUp 0.9s ease-out;
+    }
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .hero-content p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+
+    /* Hero Button Styling - Yellow Professional */
+    .hero-btn {
+      background-color: var(--accent);
+      color: #000;
+      border: none;
+      padding: 12px 32px;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .hero-btn:hover {
+      background-color: #e0a800;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Slider Navigation Arrows */
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+    .slider-nav:hover {
+      background: var(--accent);
+      color: #000;
+      transform: translateY(-50%) scale(1.1);
+    }
+    .slider-prev {
+      left: 20px;
+    }
+    .slider-next {
+      right: 20px;
+    }
+    /* Slide Indicators */
+    .slider-dots {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 12px;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .dot.active {
+      background: var(--accent);
+      width: 30px;
+      border-radius: 10px;
+    }
+    @media (max-width: 768px) {
+      .slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      .hero-content h1 { font-size: 2.5rem; }
+      .hero-slides, .hero-slider { min-height: 70vh; height: 70vh; }
+    }
+
+    /* Stats Ribbon with Counting Effect */
+    .stats-ribbon {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0;
+    }
+    .stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-item h3 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stat-number {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      min-width: 100px;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 4px;
+      background: var(--accent);
+      margin-top: 12px;
+    }
+
+    /* Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+    .card-img {
+      height: 210px;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .card:hover .card-img { transform: scale(1.02); }
+    .card-content { padding: 24px; }
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .card-desc { color: #3a3a44; }
+
+    /* Alternating Sections */
+    .alternating { background: var(--off-white); }
+    .alternating-item {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      margin-bottom: 80px;
+      flex-wrap: wrap;
+    }
+    .alternating-item.reverse { flex-direction: row-reverse; }
+    .alt-img {
+      flex: 1;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .alt-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .alt-text { flex: 1; }
+    .alt-text h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .stat-highlight {
+      background: var(--accent);
+      color: #0a0a0c;
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    /* ========== INFINITE PROGRAM SLIDER ========== */
+    .programs-marquee-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      background: transparent;
+      margin: 1rem 0 2rem 0;
+    }
+    .programs-marquee-track {
+      display: flex;
+      gap: 2rem;
+      width: max-content;
+      will-change: transform;
+    }
+    .program-card {
+      background: white;
+      border-radius: 28px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      border: 1px solid #f0f0f0;
+      flex: 0 0 auto;
+      width: 280px;
+      cursor: pointer;
+    }
+    .program-card:hover {
+      transform: translateY(-8px);
+      background: #fffcf5;
+      border-color: var(--accent);
+      box-shadow: var(--shadow-hover);
+    }
+    .program-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .program-card h4 { font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; }
+    .program-card p { font-size: 0.9rem; color: #3a3a44; line-height: 1.4; }
+    @media (max-width: 768px) { .program-card { width: 260px; padding: 1.5rem 1.2rem; } }
+
+    .programs-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      padding-bottom: 30px;
+    }
+    .carousel-controls {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .carousel-arrow, .pause-btn {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--dark);
+    }
+    .carousel-arrow:hover, .pause-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+      transform: scale(1.05);
+    }
+    .carousel-arrow:active, .pause-btn:active { transform: scale(0.96); }
+    .pause-btn.paused { background: var(--accent); color: white; border-color: var(--accent); }
+    @media (max-width: 680px) { .programs-footer { flex-direction: column; gap: 1rem; } }
+
+    /* Research Section */
+    .research-highlight {
+      background: var(--gray-light);
+      border-radius: 28px;
+      padding: 2rem;
+    }
+    .research-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 30px;
+    }
+    .research-item {
+      background: white;
+      border-radius: 20px;
+      flex: 1 1 260px;
+      padding: 20px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .research-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #ccc;
+      padding: 60px 0 30px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-col h4 { color: white; font-weight: 700; margin-bottom: 1.2rem; }
+    .footer-col a { display: block; color: #bbb; text-decoration: none; margin-bottom: 12px; font-size: 0.9rem; transition: color 0.2s; cursor: pointer; }
+    .footer-col a:hover { color: var(--accent); }
+    .newsletter {
+      background: #1e1e24;
+      border-radius: 20px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+    .newsletter input {
+      padding: 12px 16px;
+      border-radius: 60px;
+      border: none;
+      width: 70%;
+      margin-right: 8px;
+    }
+    .btn-small {
+      background: var(--accent);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 60px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-small:hover { background: #e0a800; transform: scale(1.02); }
+    .copyright { text-align: center; border-top: 1px solid #2c2c34; padding-top: 2rem; font-size: 0.8rem; }
+
+    /* Scroll animations */
+    .scroll-animate {
+      opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      will-change: transform, opacity;
+    }
+    .scroll-animate.down-active { opacity: 1; transform: translateY(0); }
+    .scroll-animate.down-inactive { transform: translateY(40px); }
+    .scroll-animate.up-active { opacity: 1; transform: translateY(0); }
+    .scroll-animate.up-inactive { transform: translateY(-40px); }
+
+    .btn-secondary {
+      background: none;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: 0.2s;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-secondary:hover { background: var(--accent); color: #000; }
+    img { max-width: 100%; }
+
+    @media (max-width: 1100px) {
+      .mega-container { flex-wrap: wrap; gap: 2rem; }
+      .mega-col { min-width: 180px; }
+      .mega-col a { white-space: normal; }
+      .mega-col h4 { white-space: normal; }
+    }
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+      .menu-toggle { display: block; }
+      .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: #0a0a0c;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        z-index: 999;
+      }
+      .nav-menu.active { left: 0; }
+      .mega-dropdown { display: none; }
+      .nav-item:hover .mega-dropdown { display: none; }
+      .stats-grid { justify-content: center; }
+      .alternating-item { gap: 2rem; }
+      .section-title { font-size: 2rem; }
+      .logo { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="donate.html" class="donate-fixed" id="donateBtn" data-aos="zoom-in">DONATE</a>
+
+<nav class="navbar" id="navbar" data-aos="fade-down">
+  <div class="nav-container">
+    <a href="index.html" class="logo" style="display:flex; flex-direction:column; align-items:flex-start; line-height:1;">
+      <img src="logo.png" alt="Nawe Abeho Foundation Logo" style="height:50px; width:auto; margin-bottom:6px;">
+      <span style="font-size:1rem; font-weight:700; color:white;">Nawe <span style="color: var(--accent);">Abeho</span> Foundation</span>
+    </a>
+    <button class="menu-toggle" id="mobileMenuBtn">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">About <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>WHO WE ARE</h4><a href="mission.html">Our Mission</a><a href="team.html">Our Team & Board</a><a href="story.html">Our Story & Journey</a><a href="partners.html">Partners & Supporters</a></div><div class="mega-col"><h4>OUR COMMITMENT</h4><a href="health.html">Children’s Health & Care</a><a href="congenital.html">Congenital Conditions Support</a><a href="inclusion.html">Disability Inclusion</a><a href="family.html">Family Support & Counseling</a></div><div class="mega-col"><h4>TRANSPARENCY</h4><a href="reports.html">Annual Reports</a><a href="financial.html">Financial Statements</a><a href="policies.html">Policies & Guidelines</a></div><div class="mega-col"><div class="mega-feature"><p>✨ <strong>Our Vision 2030</strong><br>Ensuring every child with congenital conditions receives care, dignity, and opportunity.</p></div></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Programs <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR PROGRAMS</h4><a href="medical.html">Medical Support & Referrals</a><a href="rehab.html">Rehabilitation Services</a><a href="education.html">Inclusive Education Support</a><a href="awareness.html">Community Awareness</a></div><div class="mega-col"><h4>FAMILY SERVICES</h4><a href="counseling.html">Parent Counseling</a><a href="nutrition.html">Nutrition & Growth Support</a><a href="psychosocial.html">Psychosocial Care</a></div><div class="mega-col"><h4>PARTNERSHIPS</h4><a href="hospitals.html">Hospitals & Specialists</a><a href="workers.html">Community Health Workers</a><a href="network.html">International Support Network</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Impact <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR IMPACT</h4><a href="children-supported.html">Children Supported</a><a href="healthcare-access.html">Healthcare Access</a><a href="outreach.html">Community Outreach</a></div><div class="mega-col"><h4>RESEARCH & RESOURCES</h4><a href="awareness-research.html">Congenital Conditions Awareness</a><a href="inclusion-resources.html">Disability Inclusion Resources</a><a href="guides.html">Family Support Guides</a></div><div class="mega-col"><h4>MONITORING</h4><a href="impact-reports.html">Impact Reports</a><a href="case-studies.html">Case Studies</a><a href="success-stories.html">Success Stories</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Stories <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>LATEST STORIES</h4><a href="healing-journeys.html">Children’s Healing Journeys</a><a href="family-voices.html">Family Voices</a><a href="champions.html">Community Champions</a><a href="inclusion-stories.html">Disability Inclusion Stories</a></div><div class="mega-col"><h4>OUR WORK</h4><a href="outreach-visits.html">Health Outreach Visits</a><a href="rehab-support.html">Rehabilitation Support</a><a href="hospital-partners.html">Hospital Partnerships</a></div><div class="mega-col"><h4>NEWS & BLOG</h4><a href="updates.html">Updates & Announcements</a><a href="articles.html">Awareness Articles</a><a href="parent-education.html">Parent Education</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">News <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>MEDIA & UPDATES</h4><a href="press.html">Press Releases</a><a href="events.html">Events & Campaigns</a><a href="outreach-updates.html">Community Outreach Updates</a></div><div class="mega-col"><h4>ANNOUNCEMENTS</h4><a href="new-partnerships.html">New Partnerships</a><a href="volunteer.html">Volunteer Opportunities</a><a href="support-donations.html">Support & Donations</a></div><div class="mega-col"><h4>NEWSLETTER</h4><a href="subscribe.html">Subscribe for Updates</a><a href="previous-updates.html">Previous Updates</a></div></div></div></li>
+      <li><a href="contact.html" class="btn-outline-light-nav">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Auto Sliding Hero Section -->
+<div class="hero-slider">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active" style="background-image: url('https://images.pexels.com/photos/9642864/pexels-photo-9642864.jpeg');">
+      <div class="container"><div class="hero-content" data-aos="fade-right"><h1>Their Smiles<br>Our Priority.</h1><p>Nawe Abeho Foundation supports children born with congenital abnormalities and lifelong disabilities by improving access to healthcare, rehabilitation, and inclusive community services.</p><a href="mission.html" class="hero-btn">Discover our mission →</a></div></div>
+    </div>
+    <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/34185205/pexels-photo-34185205.jpeg');">
+      <div class="container"><div class="hero-content" data-aos="fade-right"><h1>Healing Hands<br>Caring Hearts.</h1><p>Every child deserves quality healthcare. We connect families with specialist care, surgeries, and rehabilitation services.</p><a href="medical.html" class="hero-btn">Our Medical Support →</a></div></div>
+    </div>
+    <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/11405351/pexels-photo-11405351.jpeg');">
+      <div class="container"><div class="hero-content" data-aos="fade-right"><h1>Building Futures<br>Together.</h1><p>Inclusive education, family support, and community awareness to ensure no child is left behind.</p><a href="education.html" class="hero-btn">Learn More →</a></div></div>
+    </div>
+    <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1600&auto=format');">
+      <div class="container"><div class="hero-content" data-aos="fade-right"><h1>Hope Begins<br>With Care.</h1><p>Join us in transforming lives of children with congenital conditions across Africa.</p><a href="donate.html" class="hero-btn">Support Our Mission →</a></div></div>
+    </div>
+  </div>
+  <button class="slider-nav slider-prev" id="sliderPrev">←</button>
+  <button class="slider-nav slider-next" id="sliderNext">→</button>
+  <div class="slider-dots" id="sliderDots"></div>
+</div>
+
+<!-- Stats Ribbon with Counting Effect -->
+<div class="stats-ribbon" data-aos="fade-up">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item" data-aos="zoom-in" data-aos-delay="100"><h3><span class="stat-counter" data-target="110">0</span>+</h3><p>Children supported since 2026</p></div>
+      <div class="stat-item" data-aos="zoom-in" data-aos-delay="200"><h3><span class="stat-counter" data-target="67">0</span>%</h3><p>of our partnerships are locally led</p></div>
+      <div class="stat-item" data-aos="zoom-in" data-aos-delay="300"><h3><span class="stat-counter" data-target="52">0</span>+</h3><p>Children reached beyond Rwanda</p></div>
+      <div class="stat-item" data-aos="zoom-in" data-aos-delay="400"><h3>2030</h3><p>Target: 100,000 children supported across Africa</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="cardSection">
+  <h2 class="section-title scroll-animate" data-delay="0" data-aos="fade-up">Our Impact Stories</h2>
+  <div class="card-grid">
+    <div class="card scroll-animate" data-delay="100" data-aos="zoom-in" data-aos-delay="100"><img class="card-img" src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=600&auto=format" alt="child support program"><div class="card-content"><div class="card-title">Inclusive Care for Children with Disabilities</div><div class="card-desc">Supporting children with physical and developmental disabilities through inclusion programs, community care, and access to essential services.</div></div></div>
+    <div class="card scroll-animate" data-delay="200" data-aos="zoom-in" data-aos-delay="200"><img class="card-img" src="https://images.pexels.com/photos/8054607/pexels-photo-8054607.jpeg" alt="family support and counseling"><div class="card-content"><div class="card-title">Family Support & Counseling Program</div><div class="card-desc">Providing guidance, psychosocial support, and counseling to parents and caregivers raising children with congenital conditions.</div></div></div>
+    <div class="card scroll-animate" data-delay="300" data-aos="zoom-in" data-aos-delay="300"><img class="card-img" src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&auto=format" alt="rehabilitation services"><div class="card-content"><div class="card-title">Rehabilitation & Assistive Devices</div><div class="card-desc">Helping children access physiotherapy, prosthetics, wheelchairs, and assistive technology to improve mobility and independence.</div></div></div>
+    <div class="card scroll-animate" data-delay="400" data-aos="zoom-in" data-aos-delay="400"><img class="card-img" src="https://images.pexels.com/photos/20407103/pexels-photo-20407103.jpeg" alt="hope and healing initiative"><div class="card-content"><div class="card-title">Hope & Healing Initiative</div><div class="card-desc">Delivering early intervention, medical referrals, and long-term care support for children born with congenital abnormalities and chronic conditions.</div></div></div>
+  </div>
+</div>
+
+<div class="alternating">
+  <div class="container">
+    <div class="alternating-item scroll-animate" data-delay="0" data-aos="fade-right"><div class="alt-img"><img src="https://images.pexels.com/photos/20333031/pexels-photo-20333031.jpeg" alt="child healthcare support"></div><div class="alt-text"><span class="stat-highlight">100,000 children by 2030</span><h3>Giving every child a chance to live and thrive</h3><p>We stand with children born with congenital conditions and lifelong disabilities by supporting early diagnosis, treatment access, rehabilitation, and inclusive community care—ensuring no child is left behind.</p><a href="impact.html" style="color:var(--accent); font-weight:600;">Explore our impact →</a></div></div>
+    <div class="alternating-item reverse scroll-animate" data-delay="100" data-aos="fade-left"><div class="alt-img"><img src="https://images.pexels.com/photos/9823016/pexels-photo-9823016.jpeg" alt="community outreach"></div><div class="alt-text"><span class="stat-highlight">Community outreach & awareness</span><h3>Reducing stigma through education and advocacy</h3><p>We work with communities, health workers, and partners to raise awareness about congenital diseases and childhood disabilities, promote early medical support, and protect children's rights to dignity and inclusion.</p><a href="awareness.html" style="color:var(--accent); font-weight:600;">Learn more →</a></div></div>
+  </div>
+</div>
+
+<!-- Programs Section -->
+<div class="container">
+  <h2 class="section-title scroll-animate" data-delay="0" data-aos="fade-up">Our programs & focus areas</h2>
+  <div class="programs-marquee-wrapper" data-aos="fade-up">
+    <div class="programs-marquee-track" id="programsMarqueeTrack">
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🏥</div><h4>Medical Support</h4><p>Linking children to hospitals, specialists, and essential treatment services for congenital conditions.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🧑‍⚕️</div><h4>Rehabilitation Care</h4><p>Supporting physiotherapy, occupational therapy, and long-term rehabilitation for children.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🎒</div><h4>Inclusive Education</h4><p>Helping children access inclusive learning opportunities and supporting families.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🤝</div><h4>Partnerships & Advocacy</h4><p>Collaborating to strengthen child protection, disability inclusion, and awareness.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🫀</div><h4>Cardiac Care Initiative</h4><p>Specialized support for children with congenital heart defects and follow-up care.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🧬</div><h4>Genetic & Early Diagnosis</h4><p>Promoting early screening and genetic counseling for rare conditions.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">👩‍🦽</div><h4>Mobility & Independence</h4><p>Providing custom wheelchairs, walking aids, and therapy for empowerment.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">📢</div><h4>Community Stigma Reduction</h4><p>Awareness campaigns to break myths and foster inclusive societies.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🍎</div><h4>Nutrition for Special Needs</h4><p>Tailored nutrition plans for children with metabolic or feeding difficulties.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🧘</div><h4>Mental Health & Resilience</h4><p>Psychosocial support groups for children and parents.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🦷</div><h4>Cleft Lip & Palate Program</h4><p>Surgical missions and post-op care for craniofacial conditions.</p></div>
+      <div class="program-card" data-aos="zoom-in"><div class="program-icon">🩺</div><h4>Neonatal Screening Hub</h4><p>Early detection of congenital disorders in newborns across rural clinics.</p></div>
+    </div>
+  </div>
+  <div class="programs-footer">
+    <a href="programs.html" class="btn-secondary">Explore all programs →</a>
+    <div class="carousel-controls">
+      <button class="carousel-arrow" id="scrollLeftArrow">←</button>
+      <button class="pause-btn" id="pausePlayBtn">⏸</button>
+      <button class="carousel-arrow" id="scrollRightArrow">→</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="research-highlight scroll-animate" data-delay="0" data-aos="fade-up">
+    <h2 class="section-title" style="margin-bottom: 12px;">Research & Learning</h2>
+    <p style="margin-bottom: 24px;">Our research and learning work strengthens awareness, improves early intervention, and supports better health outcomes for children living with congenital conditions and disabilities.</p>
+    <div class="research-list">
+      <div class="research-item" data-aos="fade-up" data-aos-delay="100"><strong>📄 Congenital Conditions Awareness Report 2026</strong><br>Early Diagnosis and Care · Rwanda and East Africa</div>
+      <div class="research-item" data-aos="fade-up" data-aos-delay="200"><strong>🧠 Child Disability Inclusion Framework</strong><br>Community Support · Schools, Families, and Health Centers</div>
+      <div class="research-item" data-aos="fade-up" data-aos-delay="300"><strong>🏥 Access to Specialized Pediatric Healthcare</strong><br>Referral Pathways · Hospitals and Rural Communities</div>
+      <div class="research-item" data-aos="fade-up" data-aos-delay="400"><strong>👨‍👩‍👧 Family Support & Psychosocial Wellbeing Study</strong><br>Caregiver Support · Stigma Reduction and Counseling</div>
+    </div>
+    <div style="margin-top: 28px;"><a href="resources.html" class="btn-primary" style="background:#e09d0e;">View all resources →</a></div>
+  </div>
+</div>
+
+<div class="container" style="padding-top: 0;">
+  <div class="scroll-animate" data-delay="0" data-aos="fade-up" style="background: #0a0a0c; border-radius: 32px; color: white; padding: 48px 32px; margin-top: 20px; display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;">
+    <div style="flex:1"><span style="color: var(--accent); font-weight: 800;">FEATURE STORY</span><h3 style="font-size: 2rem; margin: 16px 0;">Hope Begins with Early Care and Compassion</h3><p>A documentary-style story highlighting families, children, and health professionals working together to overcome congenital disabilities and chronic childhood conditions.</p><a href="stories.html" style="color: var(--accent); font-weight: 600; margin-top: 20px; display: inline-block;">Read the full story →</a></div>
+    <div style="flex:1; border-radius: 28px; overflow: hidden;"><img src="https://images.pexels.com/photos/19782328/pexels-photo-19782328.jpeg" style="width:100%;" alt="child healthcare story"></div>
+  </div>
+</div>
+
+<div class="container">
+  <h2 class="section-title scroll-animate" data-delay="0" data-aos="fade-up">Latest Updates</h2>
+  <div class="card-grid">
+    <div class="card scroll-animate" data-delay="50" data-aos="fade-up" data-aos-delay="50"><div class="card-content"><div class="card-title">📰 New Community Outreach Program Launched in Rwanda</div><div class="card-desc">10 February 2026 — Strengthening awareness and early referrals for children with congenital conditions.</div></div></div>
+    <div class="card scroll-animate" data-delay="100" data-aos="fade-up" data-aos-delay="100"><div class="card-content"><div class="card-title">🇷🇼 Partnership with Local Clinics to Support Pediatric Care</div><div class="card-desc">27 November 2025 — Improving access to specialized services and rehabilitation support for children and families.</div></div></div>
+    <div class="card scroll-animate" data-delay="150" data-aos="fade-up" data-aos-delay="150"><div class="card-content"><div class="card-title">🏛️ New Advocacy Campaign Promotes Disability Inclusion</div><div class="card-desc">22 October 2025 — Building awareness to reduce stigma and protect the rights of children living with disabilities.</div></div></div>
+  </div>
+</div>
+
+<footer data-aos="fade-up">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h4>About</h4><a href="mission.html">Our mission</a><a href="team.html">Our leadership</a><a href="volunteer.html">Volunteer opportunities</a><a href="press.html">Media & press</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="faq.html">FAQs</a><a href="reports.html">Reports & publications</a><a href="policies.html">Policies</a><a href="guides.html">Caregiver support guide</a></div>
+      <div class="footer-col"><h4>Partners</h4><a href="partners.html">Become a partner</a><a href="medical-partners.html">Medical partnerships</a><a href="donor.html">Donor engagement</a></div>
+      <div class="footer-col"><h4>Connect</h4><a href="contact.html">Contact us</a><a href="events.html">Events & outreach</a><a href="#">YouTube</a><a href="#">LinkedIn</a></div>
+    </div>
+    <div class="newsletter" data-aos="zoom-in">
+      <h4 style="color:white;">Stay Connected</h4>
+      <p style="margin-bottom: 16px;">Subscribe to receive updates about our programs, outreach campaigns, and ways to support children living with congenital conditions.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <input type="email" id="newsletterEmail" placeholder="Your email address">
+        <button class="btn-small" id="subscribeBtn">Subscribe →</button>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>© 2026 Nawe Abeho Foundation. All Rights Reserved. | We never ask for money through unofficial channels — report suspicious activity.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== MOBILE MENU =====
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navMenu = document.getElementById('navMenu');
+  if (mobileBtn) mobileBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
+
+  // ===== NAVBAR HIDE ON SCROLL =====
+  let lastScrollY = window.scrollY;
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentScrollY > 80) navbar.classList.add('hidden');
+    else navbar.classList.remove('hidden');
+    lastScrollY = currentScrollY;
+  });
+
+  // ===== SCROLL ANIMATION =====
+  let scrollDirection = 'down';
+  let lastScrollPosition = window.scrollY;
+  const animatedElements = document.querySelectorAll('.scroll-animate');
+  function isElementInViewport(el, offset = 80) {
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    return rect.top < windowHeight - offset && rect.bottom > offset;
+  }
+  function updateAnimations() {
+    animatedElements.forEach(el => {
+      const isVisible = isElementInViewport(el, 80);
+      el.classList.remove('down-active', 'down-inactive', 'up-active', 'up-inactive');
+      if (scrollDirection === 'down') {
+        if (isVisible) el.classList.add('down-active');
+        else el.classList.add('down-inactive');
+      } else {
+        if (isVisible) el.classList.add('up-active');
+        else el.classList.add('up-inactive');
+      }
+    });
+  }
+  function detectScrollDirection() {
+    const currentScroll = window.scrollY;
+    if (currentScroll > lastScrollPosition) scrollDirection = 'down';
+    else if (currentScroll < lastScrollPosition) scrollDirection = 'up';
+    lastScrollPosition = currentScroll;
+    updateAnimations();
+  }
+  window.addEventListener('scroll', () => {
+    detectScrollDirection();
+    clearTimeout(window.scrollTimeout);
+    window.scrollTimeout = setTimeout(() => updateAnimations(), 100);
+  });
+  function initializeAnimations() {
+    animatedElements.forEach(el => el.classList.add('scroll-animate', 'down-inactive'));
+    lastScrollPosition = window.scrollY;
+    scrollDirection = 'down';
+    updateAnimations();
+  }
+  initializeAnimations();
+  setTimeout(() => updateAnimations(), 300);
+
+  // ===== AUTO SLIDING HERO CAROUSEL =====
+  const slides = document.querySelectorAll('.hero-slide');
+  const prevBtn = document.getElementById('sliderPrev');
+  const nextBtn = document.getElementById('sliderNext');
+  const dotsContainer = document.getElementById('sliderDots');
+  let currentSlide = 0;
+  let slideInterval;
+  const slideCount = slides.length;
+
+  // Create dots
+  slides.forEach((_, index) => {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    if (index === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+  const dots = document.querySelectorAll('.dot');
+
+  function goToSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = (index + slideCount) % slideCount;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+    resetInterval();
+  }
+
+  function nextSlide() { goToSlide(currentSlide + 1); }
+  function prevSlide() { goToSlide(currentSlide - 1); }
+  function resetInterval() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, 5000);
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+  resetInterval();
+
+  // ===== COUNTING EFFECT FOR STATISTICS =====
+  const counters = document.querySelectorAll('.stat-counter');
+  let counted = false;
+  
+  function startCounters() {
+    if (counted) return;
+    counted = true;
+    
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target'));
+      let current = 0;
+      const increment = target / 50;
+      const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+          counter.textContent = Math.ceil(current);
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.textContent = target;
+        }
+      };
+      updateCounter();
+    });
+  }
+  
+  // Trigger counters when stats section is visible
+  const statsSection = document.querySelector('.stats-ribbon');
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startCounters();
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  if (statsSection) statsObserver.observe(statsSection);
+
+  // ===== TRUE INFINITE PROGRAM SLIDER =====
+  const track = document.getElementById("programsMarqueeTrack");
+  const originalCards = Array.from(track.children);
+  originalCards.forEach(card => { const clone = card.cloneNode(true); track.appendChild(clone); });
+  let speed = 0.7;
+  let position = 0;
+  let isPaused = false;
+  let isHovered = false;
+  function infiniteScroll() {
+    if (!isPaused && !isHovered) {
+      position -= speed;
+      if (Math.abs(position) >= track.scrollWidth / 2) { position = 0; }
+      track.style.transform = `translateX(${position}px)`;
+    }
+    requestAnimationFrame(infiniteScroll);
+  }
+  infiniteScroll();
+  const pauseBtn = document.getElementById("pausePlayBtn");
+  pauseBtn.addEventListener("click", () => {
+    isPaused = !isPaused;
+    pauseBtn.innerHTML = isPaused ? "▶" : "⏸";
+    pauseBtn.classList.toggle("paused");
+  });
+  track.addEventListener("mouseenter", () => {
+    isHovered = true;
+    if (!isPaused) { pauseBtn.innerHTML = "▶"; pauseBtn.classList.add("paused"); }
+  });
+  track.addEventListener("mouseleave", () => {
+    isHovered = false;
+    if (!isPaused) { pauseBtn.innerHTML = "⏸"; pauseBtn.classList.remove("paused"); }
+  });
+  const leftArrow = document.getElementById("scrollLeftArrow");
+  const rightArrow = document.getElementById("scrollRightArrow");
+  leftArrow.addEventListener("click", () => {
+    const wasPaused = isPaused;
+    if (!wasPaused) isPaused = true;
+    position += 280;
+    if (position > 0) position = 0;
+    track.style.transform = `translateX(${position}px)`;
+    track.style.transition = 'transform 0.3s ease-out';
+    setTimeout(() => { track.style.transition = ''; if (!wasPaused) isPaused = false; }, 300);
+  });
+  rightArrow.addEventListener("click", () => {
+    const wasPaused = isPaused;
+    if (!wasPaused) isPaused = true;
+    position -= 280;
+    if (Math.abs(position) >= track.scrollWidth / 2) position = 0;
+    track.style.transform = `translateX(${position}px)`;
+    track.style.transition = 'transform 0.3s ease-out';
+    setTimeout(() => { track.style.transition = ''; if (!wasPaused) isPaused = false; }, 300);
+  });
+
+  // Subscribe button handler
+  const subscribeBtn = document.getElementById('subscribeBtn');
+  const newsletterEmail = document.getElementById('newsletterEmail');
+  if (subscribeBtn) {
+    subscribeBtn.addEventListener('click', () => {
+      const email = newsletterEmail.value.trim();
+      if (email) {
+        alert(`Thanks for subscribing! (${email})`);
+        newsletterEmail.value = '';
+      } else {
+        alert('Please enter your email address');
+      }
+    });
+  }
+</script>
+
+<!-- AOS Script (ADDED ONLY) -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+AOS.init({
+  duration: 1000,
+  once: true,
+  easing: "ease-in-out"
+});
+</script>
+
+</body>
+</html>
