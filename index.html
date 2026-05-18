@@ -269,7 +269,7 @@
       white-space: normal;
     }
 
-    /* ===== RESPONSIVE FIXES - ONLY CHANGED MOBILE NAVIGATION ===== */
+    /* ===== RESPONSIVE FIXES ===== */
     @media (max-width: 1100px) {
       .mega-container { flex-wrap: wrap; gap: 2rem; }
       .mega-col { min-width: 180px; }
@@ -284,61 +284,75 @@
         z-index: 1002;
       }
       
-      /* Keep original nav-menu but make it mobile-friendly */
       .nav-menu {
         position: fixed;
         left: -100%;
-        top: 80px;
+        top: 70px;
         flex-direction: column;
         background: #0a0a0c;
         width: 100%;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 70px);
         overflow-y: auto;
         text-align: left;
         transition: 0.3s ease-in-out;
-        padding: 1.5rem 0;
+        padding: 0 0 2rem 0;
         gap: 0;
         z-index: 999;
         display: flex;
+        -webkit-overflow-scrolling: touch;
       }
       .nav-menu.active { 
         left: 0; 
       }
       
-      /* Style nav items for mobile */
       .nav-item {
         width: 100%;
         border-bottom: 1px solid rgba(255,255,255,0.08);
         position: relative;
       }
       
+      /* On mobile, disable CSS hover for mega-dropdown — JS handles it */
+      .nav-item:hover .mega-dropdown {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-15px);
+      }
+
       .nav-link-with-arrow {
         padding: 16px 24px;
         width: 100%;
         justify-content: space-between;
         font-size: 1rem;
+        display: flex;
       }
-      
-      /* Make mega-dropdown work on mobile - click to open, not hover */
+
+      /* Mobile dropdown: hidden by default, shown via JS class */
       .mega-dropdown {
         position: static;
         width: 100%;
         opacity: 0;
         visibility: hidden;
-        transform: none;
-        display: none;
-        background: rgba(255,255,255,0.05);
+        transform: none !important;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+        background: rgba(255,255,255,0.04);
         backdrop-filter: none;
         border: none;
         box-shadow: none;
-        transition: none;
+        display: block; /* keep display:block, control via max-height + opacity */
       }
       
       /* When dropdown is open on mobile */
-      .nav-item.mobile-dropdown-open .mega-dropdown {
+      .nav-item.mobile-open .mega-dropdown {
         opacity: 1;
         visibility: visible;
-        display: block;
+        max-height: 1000px;
+      }
+
+      /* Rotate arrow when open */
+      .nav-item.mobile-open .dropdown-arrow {
+        transform: rotate(180deg);
       }
       
       .mega-container {
@@ -351,37 +365,53 @@
         padding: 0;
         border-bottom: 1px solid rgba(255,255,255,0.05);
         width: 100%;
+        min-width: unset;
       }
       
       .mega-col h4 {
-        padding: 14px 24px;
+        padding: 12px 24px;
         margin-bottom: 0;
         background: rgba(0,0,0,0.3);
         white-space: normal;
+        font-size: 0.75rem;
       }
       
       .mega-col a {
-        padding: 12px 24px 12px 48px;
+        padding: 11px 24px 11px 44px;
         white-space: normal;
         word-break: break-word;
+        font-size: 0.88rem;
       }
       
       .mega-col a::before {
         content: "→";
         opacity: 1;
         transform: none;
+        position: absolute;
+        left: 24px;
+      }
+
+      .mega-col a:hover {
+        transform: none;
+        color: var(--accent);
       }
       
       .mega-feature {
-        margin: 12px;
-        padding: 16px;
+        margin: 12px 16px;
+        padding: 14px;
+        border-radius: 10px;
+      }
+
+      .mega-feature p {
+        font-size: 0.82rem;
       }
       
       .btn-outline-light-nav {
         display: block;
         text-align: center;
-        margin: 20px 24px;
+        margin: 16px 24px;
         padding: 12px;
+        border-radius: 40px;
       }
       
       .logo {
@@ -714,13 +744,59 @@
     <a href="index.html" class="logo" style="display:flex; flex-direction:column; align-items:flex-start; line-height:1;">
       <span style="font-size:1rem; font-weight:700; color:white;">Nawe <span style="color: var(--accent);">Abeho</span> Foundation</span>
     </a>
-    <button class="menu-toggle" id="mobileMenuBtn">☰</button>
+    <button class="menu-toggle" id="mobileMenuBtn" aria-label="Toggle menu">☰</button>
     <ul class="nav-menu" id="navMenu">
-      <li class="nav-item"><a href="#" class="nav-link-with-arrow">About <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>WHO WE ARE</h4><a href="mission.html">Our Mission</a><a href="team.html">Our Team & Board</a><a href="story.html">Our Story & Journey</a><a href="partners.html">Partners & Supporters</a></div><div class="mega-col"><h4>OUR COMMITMENT</h4><a href="health.html">Children's Health & Care</a><a href="congenital.html">Congenital Conditions Support</a><a href="inclusion.html">Disability Inclusion</a><a href="family.html">Family Support & Counseling</a></div><div class="mega-col"><h4>TRANSPARENCY</h4><a href="reports.html">Annual Reports</a><a href="financial.html">Financial Statements</a><a href="policies.html">Policies & Guidelines</a></div><div class="mega-col"><div class="mega-feature"><p>✨ <strong>Our Vision 2030</strong><br>Ensuring every child with congenital conditions receives care, dignity, and opportunity.</p></div></div></div></div></li>
-      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Programs <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR PROGRAMS</h4><a href="medical.html">Medical Support & Referrals</a><a href="rehab.html">Rehabilitation Services</a><a href="education.html">Inclusive Education Support</a><a href="awareness.html">Community Awareness</a></div><div class="mega-col"><h4>FAMILY SERVICES</h4><a href="counseling.html">Parent Counseling</a><a href="nutrition.html">Nutrition & Growth Support</a><a href="psychosocial.html">Psychosocial Care</a></div><div class="mega-col"><h4>PARTNERSHIPS</h4><a href="hospitals.html">Hospitals & Specialists</a><a href="workers.html">Community Health Workers</a><a href="network.html">International Support Network</a></div></div></div></li>
-      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Impact <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR IMPACT</h4><a href="children-supported.html">Children Supported</a><a href="healthcare-access.html">Healthcare Access</a><a href="outreach.html">Community Outreach</a></div><div class="mega-col"><h4>RESEARCH & RESOURCES</h4><a href="awareness-research.html">Congenital Conditions Awareness</a><a href="inclusion-resources.html">Disability Inclusion Resources</a><a href="guides.html">Family Support Guides</a></div><div class="mega-col"><h4>MONITORING</h4><a href="impact-reports.html">Impact Reports</a><a href="case-studies.html">Case Studies</a><a href="success-stories.html">Success Stories</a></div></div></div></li>
-      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Stories <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>LATEST STORIES</h4><a href="healing-journeys.html">Children's Healing Journeys</a><a href="family-voices.html">Family Voices</a><a href="champions.html">Community Champions</a><a href="inclusion-stories.html">Disability Inclusion Stories</a></div><div class="mega-col"><h4>OUR WORK</h4><a href="outreach-visits.html">Health Outreach Visits</a><a href="rehab-support.html">Rehabilitation Support</a><a href="hospital-partners.html">Hospital Partnerships</a></div><div class="mega-col"><h4>NEWS & BLOG</h4><a href="updates.html">Updates & Announcements</a><a href="articles.html">Awareness Articles</a><a href="parent-education.html">Parent Education</a></div></div></div></li>
-      <li class="nav-item"><a href="#" class="nav-link-with-arrow">News <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>MEDIA & UPDATES</h4><a href="press.html">Press Releases</a><a href="events.html">Events & Campaigns</a><a href="outreach-updates.html">Community Outreach Updates</a></div><div class="mega-col"><h4>ANNOUNCEMENTS</h4><a href="new-partnerships.html">New Partnerships</a><a href="volunteer.html">Volunteer Opportunities</a><a href="support-donations.html">Support & Donations</a></div><div class="mega-col"><h4>NEWSLETTER</h4><a href="subscribe.html">Subscribe for Updates</a><a href="previous-updates.html">Previous Updates</a></div></div></div></li>
+      <li class="nav-item">
+        <a href="#" class="nav-link-with-arrow">About <span class="dropdown-arrow">▼</span></a>
+        <div class="mega-dropdown">
+          <div class="mega-container">
+            <div class="mega-col"><h4>WHO WE ARE</h4><a href="mission.html">Our Mission</a><a href="team.html">Our Team & Board</a><a href="story.html">Our Story & Journey</a><a href="partners.html">Partners & Supporters</a></div>
+            <div class="mega-col"><h4>OUR COMMITMENT</h4><a href="health.html">Children's Health & Care</a><a href="congenital.html">Congenital Conditions Support</a><a href="inclusion.html">Disability Inclusion</a><a href="family.html">Family Support & Counseling</a></div>
+            <div class="mega-col"><h4>TRANSPARENCY</h4><a href="reports.html">Annual Reports</a><a href="financial.html">Financial Statements</a><a href="policies.html">Policies & Guidelines</a></div>
+            <div class="mega-col"><div class="mega-feature"><p>✨ <strong>Our Vision 2030</strong><br>Ensuring every child with congenital conditions receives care, <br>dignity, and opportunity.</p></div></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link-with-arrow">Programs <span class="dropdown-arrow">▼</span></a>
+        <div class="mega-dropdown">
+          <div class="mega-container">
+            <div class="mega-col"><h4>OUR PROGRAMS</h4><a href="medical.html">Medical Support & Referrals</a><a href="rehab.html">Rehabilitation Services</a><a href="education.html">Inclusive Education Support</a><a href="awareness.html">Community Awareness</a></div>
+            <div class="mega-col"><h4>FAMILY SERVICES</h4><a href="counseling.html">Parent Counseling</a><a href="nutrition.html">Nutrition & Growth Support</a><a href="psychosocial.html">Psychosocial Care</a></div>
+            <div class="mega-col"><h4>PARTNERSHIPS</h4><a href="hospitals.html">Hospitals & Specialists</a><a href="workers.html">Community Health Workers</a><a href="network.html">International Support Network</a></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link-with-arrow">Impact <span class="dropdown-arrow">▼</span></a>
+        <div class="mega-dropdown">
+          <div class="mega-container">
+            <div class="mega-col"><h4>OUR IMPACT</h4><a href="children-supported.html">Children Supported</a><a href="healthcare-access.html">Healthcare Access</a><a href="outreach.html">Community Outreach</a></div>
+            <div class="mega-col"><h4>RESEARCH & RESOURCES</h4><a href="awareness-research.html">Congenital Conditions Awareness</a><a href="inclusion-resources.html">Disability Inclusion Resources</a><a href="guides.html">Family Support Guides</a></div>
+            <div class="mega-col"><h4>MONITORING</h4><a href="impact-reports.html">Impact Reports</a><a href="case-studies.html">Case Studies</a><a href="success-stories.html">Success Stories</a></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link-with-arrow">Stories <span class="dropdown-arrow">▼</span></a>
+        <div class="mega-dropdown">
+          <div class="mega-container">
+            <div class="mega-col"><h4>LATEST STORIES</h4><a href="healing-journeys.html">Children's Healing Journeys</a><a href="family-voices.html">Family Voices</a><a href="champions.html">Community Champions</a><a href="inclusion-stories.html">Disability Inclusion Stories</a></div>
+            <div class="mega-col"><h4>OUR WORK</h4><a href="outreach-visits.html">Health Outreach Visits</a><a href="rehab-support.html">Rehabilitation Support</a><a href="hospital-partners.html">Hospital Partnerships</a></div>
+            <div class="mega-col"><h4>NEWS & BLOG</h4><a href="updates.html">Updates & Announcements</a><a href="articles.html">Awareness Articles</a><a href="parent-education.html">Parent Education</a></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link-with-arrow">News <span class="dropdown-arrow">▼</span></a>
+        <div class="mega-dropdown">
+          <div class="mega-container">
+            <div class="mega-col"><h4>MEDIA & UPDATES</h4><a href="press.html">Press Releases</a><a href="events.html">Events & Campaigns</a><a href="outreach-updates.html">Community Outreach Updates</a></div>
+            <div class="mega-col"><h4>ANNOUNCEMENTS</h4><a href="new-partnerships.html">New Partnerships</a><a href="volunteer.html">Volunteer Opportunities</a><a href="support-donations.html">Support & Donations</a></div>
+            <div class="mega-col"><h4>NEWSLETTER</h4><a href="subscribe.html">Subscribe for Updates</a><a href="previous-updates.html">Previous Updates</a></div>
+          </div>
+        </div>
+      </li>
       <li><a href="contact.html" class="btn-outline-light-nav">Contact</a></li>
     </ul>
   </div>
@@ -799,77 +875,70 @@
 </footer>
 
 <script>
-  // ===== MOBILE MENU TOGGLE - KEEP EXACT STRUCTURE =====
+  // ===== MOBILE MENU TOGGLE =====
   const mobileBtn = document.getElementById('mobileMenuBtn');
   const navMenu = document.getElementById('navMenu');
-  
+  const isMobileQuery = () => window.innerWidth <= 900;
+
   if (mobileBtn) {
     mobileBtn.addEventListener('click', function(e) {
       e.stopPropagation();
-      navMenu.classList.toggle('active');
-      this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+      const isOpen = navMenu.classList.toggle('active');
+      this.textContent = isOpen ? '✕' : '☰';
     });
   }
-  
-  // ===== MOBILE DROPDOWN HANDLER - TAP TO OPEN/CLOSE (PRESERVES HOVER ON DESKTOP) =====
-  function initMobileDropdowns() {
-    const navItems = document.querySelectorAll('.nav-item');
-    const isMobile = window.innerWidth <= 900;
-    
-    navItems.forEach(item => {
-      const btn = item.querySelector('.nav-link-with-arrow');
-      if (!btn) return;
-      
-      // Remove existing listeners to avoid duplicates
-      btn.removeEventListener('click', mobileClickHandler);
-      
-      if (isMobile) {
-        // Add click handler for mobile
-        btn.addEventListener('click', mobileClickHandler);
-      }
-      
-      function mobileClickHandler(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Close other open dropdowns
-        navItems.forEach(otherItem => {
-          if (otherItem !== item && otherItem.classList.contains('mobile-dropdown-open')) {
-            otherItem.classList.remove('mobile-dropdown-open');
-          }
-        });
-        
-        // Toggle current dropdown
-        item.classList.toggle('mobile-dropdown-open');
-      }
+
+  // ===== MOBILE DROPDOWN: tap nav links with arrows to open/close =====
+  document.querySelectorAll('.nav-item').forEach(function(item) {
+    const trigger = item.querySelector('.nav-link-with-arrow');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', function(e) {
+      if (!isMobileQuery()) return; // on desktop, let CSS :hover handle it
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const isOpen = item.classList.contains('mobile-open');
+
+      // Close all other open items
+      document.querySelectorAll('.nav-item.mobile-open').forEach(function(openItem) {
+        if (openItem !== item) openItem.classList.remove('mobile-open');
+      });
+
+      // Toggle this item
+      item.classList.toggle('mobile-open', !isOpen);
     });
-  }
-  
+  });
+
   // Close mobile menu when clicking outside
   document.addEventListener('click', function(e) {
-    if (navMenu && navMenu.classList.contains('active')) {
-      if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
-        navMenu.classList.remove('active');
-        if (mobileBtn) mobileBtn.textContent = '☰';
-      }
-    }
-  });
-  
-  // Initialize on load and on resize
-  initMobileDropdowns();
-  window.addEventListener('resize', function() {
-    // Close mobile menu on resize
-    if (window.innerWidth > 900 && navMenu) {
+    if (!navMenu) return;
+    if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
       navMenu.classList.remove('active');
       if (mobileBtn) mobileBtn.textContent = '☰';
+      // Also close all open dropdowns
+      document.querySelectorAll('.nav-item.mobile-open').forEach(function(item) {
+        item.classList.remove('mobile-open');
+      });
     }
-    initMobileDropdowns();
   });
-  
+
+  // On resize: close mobile UI if switching to desktop
+  window.addEventListener('resize', function() {
+    if (!isMobileQuery()) {
+      if (navMenu) navMenu.classList.remove('active');
+      if (mobileBtn) mobileBtn.textContent = '☰';
+      document.querySelectorAll('.nav-item.mobile-open').forEach(function(item) {
+        item.classList.remove('mobile-open');
+      });
+    }
+  });
+
   // ===== NAVBAR HIDE ON SCROLL =====
   let lastScrollY = window.scrollY;
   const navbar = document.getElementById('navbar');
-  
+
   window.addEventListener('scroll', function() {
     const currentScrollY = window.scrollY;
     if (currentScrollY > lastScrollY && currentScrollY > 80) {
@@ -879,7 +948,7 @@
     }
     lastScrollY = currentScrollY;
   });
-  
+
   // ===== HERO CAROUSEL =====
   const slides = document.querySelectorAll('.hero-slide');
   const prevBtn = document.getElementById('sliderPrev');
@@ -888,7 +957,7 @@
   let currentSlide = 0;
   let slideInterval;
   const slideCount = slides.length;
-  
+
   if (dotsContainer) {
     slides.forEach((_, index) => {
       const dot = document.createElement('div');
@@ -898,9 +967,9 @@
       dotsContainer.appendChild(dot);
     });
   }
-  
+
   const dots = document.querySelectorAll('.dot');
-  
+
   function goToSlide(index) {
     slides[currentSlide].classList.remove('active');
     if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
@@ -909,22 +978,22 @@
     if (dots[currentSlide]) dots[currentSlide].classList.add('active');
     resetInterval();
   }
-  
+
   function nextSlide() { goToSlide(currentSlide + 1); }
   function prevSlide() { goToSlide(currentSlide - 1); }
   function resetInterval() {
     clearInterval(slideInterval);
     slideInterval = setInterval(nextSlide, 5000);
   }
-  
+
   if (prevBtn) prevBtn.addEventListener('click', prevSlide);
   if (nextBtn) nextBtn.addEventListener('click', nextSlide);
   resetInterval();
-  
+
   // ===== COUNTING EFFECT =====
   const counters = document.querySelectorAll('.stat-counter');
   let counted = false;
-  
+
   function startCounters() {
     if (counted) return;
     counted = true;
@@ -944,7 +1013,7 @@
       updateCounter();
     });
   }
-  
+
   const statsSection = document.querySelector('.stats-ribbon');
   const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -955,7 +1024,7 @@
     });
   }, { threshold: 0.3 });
   if (statsSection) statsObserver.observe(statsSection);
-  
+
   // Subscribe button
   const subscribeBtn = document.getElementById('subscribeBtn');
   const newsletterEmail = document.getElementById('newsletterEmail');
