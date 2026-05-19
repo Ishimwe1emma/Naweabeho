@@ -38,6 +38,7 @@
       margin: 0 auto;
       padding: 0 32px;
     }
+    @media (max-width: 768px) { .container { padding: 0 20px; } }
 
     /* ===== FIXED DONATE BUTTON ===== */
     .donate-fixed {
@@ -83,7 +84,7 @@
       }
     }
 
-    /* ===== NAVBAR ===== */
+    /* ===== FULLY RESPONSIVE NAVBAR ===== */
     .navbar {
       position: fixed;
       top: 0;
@@ -109,6 +110,7 @@
       flex-wrap: wrap;
       position: relative;
     }
+    @media (max-width: 900px) { .nav-container { padding: 14px 24px; } }
     .logo {
       font-size: 1.9rem;
       font-weight: 800;
@@ -116,8 +118,13 @@
       color: white;
       text-decoration: none;
       white-space: nowrap;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1;
     }
     .logo span { color: var(--accent); }
+    @media (max-width: 900px) { .logo { font-size: 1.5rem; white-space: normal; } }
     .nav-menu {
       display: flex;
       gap: 2.5rem;
@@ -208,6 +215,7 @@
       justify-content: flex-start;
       align-items: flex-start;
     }
+    @media (max-width: 1100px) { .mega-container { flex-wrap: wrap; gap: 2rem; } .mega-col { min-width: 180px; } .mega-col a { white-space: normal; } .mega-col h4 { white-space: normal; } }
     .mega-col {
       flex: 0 0 auto;
       min-width: 200px;
@@ -268,6 +276,55 @@
       white-space: normal;
     }
 
+    /* ===== MOBILE RESPONSIVE DROPDOWN FIXES ===== */
+    @media (max-width: 900px) {
+      .menu-toggle { display: block; z-index: 1002; }
+      .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: #0a0a0c;
+        width: 100%;
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+        text-align: left;
+        transition: 0.3s ease-in-out;
+        padding: 0 0 2rem 0;
+        gap: 0;
+        z-index: 999;
+        display: flex;
+      }
+      .nav-menu.active { left: 0; }
+      .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; }
+      .nav-item:hover .mega-dropdown { opacity: 0; visibility: hidden; transform: translateY(-15px); }
+      .nav-link-with-arrow { padding: 16px 24px; width: 100%; justify-content: space-between; font-size: 1rem; display: flex; }
+      .mega-dropdown {
+        position: static;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transform: none !important;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+        background: rgba(255,255,255,0.04);
+        backdrop-filter: none;
+        border: none;
+        box-shadow: none;
+        display: block;
+      }
+      .nav-item.mobile-open .mega-dropdown { opacity: 1; visibility: visible; max-height: 1000px; }
+      .nav-item.mobile-open .dropdown-arrow { transform: rotate(180deg); }
+      .mega-container { flex-direction: column; padding: 0; gap: 0; }
+      .mega-col { padding: 0; border-bottom: 1px solid rgba(255,255,255,0.05); width: 100%; min-width: unset; }
+      .mega-col h4 { padding: 12px 24px; margin-bottom: 0; background: rgba(0,0,0,0.3); white-space: normal; font-size: 0.75rem; }
+      .mega-col a { padding: 11px 24px 11px 44px; white-space: normal; word-break: break-word; font-size: 0.88rem; }
+      .mega-col a::before { content: "→"; opacity: 1; transform: none; position: absolute; left: 24px; }
+      .mega-col a:hover { transform: none; color: var(--accent); }
+      .btn-outline-light-nav { display: block; text-align: center; margin: 16px 24px; padding: 12px; border-radius: 40px; }
+    }
+
     /* Hero Section with Background Image */
     .inner-hero {
       position: relative;
@@ -313,12 +370,14 @@
       0% { opacity: 0; transform: translateY(30px);}
       100% { opacity: 1; transform: translateY(0);}
     }
+    @media (max-width: 900px) { .inner-hero { margin-top: 70px; min-height: 70vh; text-align: center; } .hero-content { text-align: center; } .hero-content h1 { font-size: 2.5rem; } }
 
     /* Animation Classes */
     .fade-left { opacity: 0; transform: translateX(-40px); transition: all 0.8s ease; }
     .fade-right { opacity: 0; transform: translateX(40px); transition: all 0.8s ease; }
     .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
     .fade-left.visible, .fade-right.visible, .fade-up.visible { opacity: 1; transform: translateX(0) translateY(0); }
+    @media (max-width: 900px) { .fade-left, .fade-right { transform: translateX(0); } }
 
     /* Section Styles */
     section {
@@ -338,6 +397,7 @@
       background: var(--accent);
       margin-top: 12px;
     }
+    @media (max-width: 900px) { .section-title { font-size: 2rem; } }
 
     /* Mission Content */
     .mission-content {
@@ -371,6 +431,7 @@
       height: auto;
       display: block;
     }
+    @media (max-width: 900px) { .mission-content { flex-direction: column; } }
 
     /* Goals Grid */
     .goals-grid {
@@ -432,8 +493,10 @@
     }
     .stats-banner h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: var(--accent); }
     .stat-numbers { display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; }
+    @media (max-width: 768px) { .stat-numbers { gap: 2rem; } }
     .stat-number { text-align: center; }
     .stat-number .number { font-size: 3rem; font-weight: 800; color: var(--accent); }
+    @media (max-width: 768px) { .stat-number .number { font-size: 2rem; } }
 
     /* Commitment Section */
     .commitment-section {
@@ -505,6 +568,7 @@
       gap: 3rem;
       margin-bottom: 3rem;
     }
+    @media (max-width: 768px) { .footer-grid { gap: 2rem; } }
     .footer-col h4 {
       color: white;
       font-weight: 700;
@@ -533,6 +597,7 @@
       width: 70%;
       margin-right: 8px;
     }
+    @media (max-width: 768px) { .newsletter input { width: 100%; margin-right: 0; margin-bottom: 10px; } .newsletter div { flex-direction: column; } }
     .btn-small {
       background: var(--accent);
       border: none;
@@ -570,32 +635,6 @@
       background-color: #e0a800;
       transform: translateY(-2px);
     }
-
-    @media (max-width: 900px) {
-      .container { padding: 0 24px; }
-      .menu-toggle { display: block; }
-      .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background: #0a0a0c;
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        padding: 2rem 0;
-        gap: 1.5rem;
-        z-index: 999;
-      }
-      .nav-menu.active { left: 0; }
-      .mega-dropdown { display: none; }
-      .hero-content h1 { font-size: 2.5rem; }
-      .section-title { font-size: 2rem; }
-      .mission-content { flex-direction: column; }
-      .inner-hero { margin-top: 70px; min-height: 70vh; text-align: center; }
-      .hero-content { text-align: center; }
-      .fade-left, .fade-right { transform: translateX(0); }
-    }
   </style>
 </head>
 <body>
@@ -604,8 +643,7 @@
 
 <nav class="navbar" id="navbar">
   <div class="nav-container">
-    <a href="index.html" class="logo" style="display:flex; flex-direction:column; align-items:flex-start; line-height:1;">
-      <img src="logo.png" alt="Nawe Abeho Foundation Logo" style="height:50px; width:auto; margin-bottom:6px;">
+    <a href="index.html" class="logo">
       <span style="font-size:1rem; font-weight:700; color:white;">
         Nawe <span style="color: var(--accent);">Abeho</span> Foundation
       </span>
@@ -616,31 +654,10 @@
         <a href="#" class="nav-link-with-arrow">About <span class="dropdown-arrow">▼</span></a>
         <div class="mega-dropdown">
           <div class="mega-container">
-            <div class="mega-col">
-              <h4>WHO WE ARE</h4>
-              <a href="mission.html">Our Mission</a>
-              <a href="team.html">Our Team & Board</a>
-              <a href="story.html">Our Story & Journey</a>
-              <a href="partners.html">Partners & Supporters</a>
-            </div>
-            <div class="mega-col">
-              <h4>OUR COMMITMENT</h4>
-              <a href="health.html">Children’s Health & Care</a>
-              <a href="congenital.html">Congenital Conditions Support</a>
-              <a href="inclusion.html">Disability Inclusion</a>
-              <a href="family.html">Family Support & Counseling</a>
-            </div>
-            <div class="mega-col">
-              <h4>TRANSPARENCY</h4>
-              <a href="reports.html">Annual Reports</a>
-              <a href="financial.html">Financial Statements</a>
-              <a href="policies.html">Policies & Guidelines</a>
-            </div>
-            <div class="mega-col">
-              <div class="mega-feature">
-                <p>✨ <strong>Our Vision 2030</strong><br>Ensuring every child with congenital conditions <br> receives care, dignity, and opportunity.</p>
-              </div>
-            </div>
+            <div class="mega-col"><h4>WHO WE ARE</h4><a href="mission.html">Our Mission</a><a href="team.html">Our Team & Board</a><a href="story.html">Our Story & Journey</a><a href="partners.html">Partners & Supporters</a></div>
+            <div class="mega-col"><h4>OUR COMMITMENT</h4><a href="health.html">Children’s Health & Care</a><a href="congenital.html">Congenital Conditions Support</a><a href="inclusion.html">Disability Inclusion</a><a href="family.html">Family Support & Counseling</a></div>
+            <div class="mega-col"><h4>TRANSPARENCY</h4><a href="reports.html">Annual Reports</a><a href="financial.html">Financial Statements</a><a href="policies.html">Policies & Guidelines</a></div>
+            <div class="mega-col"><div class="mega-feature"><p>✨ <strong>Our Vision 2030</strong><br>Ensuring every child with congenital conditions receives care, dignity, and opportunity.</p></div></div>
           </div>
         </div>
       </li>
@@ -648,25 +665,9 @@
         <a href="#" class="nav-link-with-arrow">Programs <span class="dropdown-arrow">▼</span></a>
         <div class="mega-dropdown">
           <div class="mega-container">
-            <div class="mega-col">
-              <h4>OUR PROGRAMS</h4>
-              <a href="medical.html">Medical Support & Referrals</a>
-              <a href="rehab.html">Rehabilitation Services</a>
-              <a href="education.html">Inclusive Education Support</a>
-              <a href="awareness.html">Community Awareness</a>
-            </div>
-            <div class="mega-col">
-              <h4>FAMILY SERVICES</h4>
-              <a href="counseling.html">Parent Counseling</a>
-              <a href="nutrition.html">Nutrition & Growth Support</a>
-              <a href="psychosocial.html">Psychosocial Care</a>
-            </div>
-            <div class="mega-col">
-              <h4>PARTNERSHIPS</h4>
-              <a href="hospitals.html">Hospitals & Specialists</a>
-              <a href="workers.html">Community Health Workers</a>
-              <a href="network.html">International Support Network</a>
-            </div>
+            <div class="mega-col"><h4>OUR PROGRAMS</h4><a href="medical.html">Medical Support & Referrals</a><a href="rehab.html">Rehabilitation Services</a><a href="education.html">Inclusive Education Support</a><a href="awareness.html">Community Awareness</a></div>
+            <div class="mega-col"><h4>FAMILY SERVICES</h4><a href="counseling.html">Parent Counseling</a><a href="nutrition.html">Nutrition & Growth Support</a><a href="psychosocial.html">Psychosocial Care</a></div>
+            <div class="mega-col"><h4>PARTNERSHIPS</h4><a href="hospitals.html">Hospitals & Specialists</a><a href="workers.html">Community Health Workers</a><a href="network.html">International Support Network</a></div>
           </div>
         </div>
       </li>
@@ -674,24 +675,9 @@
         <a href="#" class="nav-link-with-arrow">Impact <span class="dropdown-arrow">▼</span></a>
         <div class="mega-dropdown">
           <div class="mega-container">
-            <div class="mega-col">
-              <h4>OUR IMPACT</h4>
-              <a href="children-supported.html">Children Supported</a>
-              <a href="healthcare-access.html">Healthcare Access</a>
-              <a href="outreach.html">Community Outreach</a>
-            </div>
-            <div class="mega-col">
-              <h4>RESEARCH & RESOURCES</h4>
-              <a href="awareness-research.html">Congenital Conditions Awareness</a>
-              <a href="inclusion-resources.html">Disability Inclusion Resources</a>
-              <a href="guides.html">Family Support Guides</a>
-            </div>
-            <div class="mega-col">
-              <h4>MONITORING</h4>
-              <a href="impact-reports.html">Impact Reports</a>
-              <a href="case-studies.html">Case Studies</a>
-              <a href="success-stories.html">Success Stories</a>
-            </div>
+            <div class="mega-col"><h4>OUR IMPACT</h4><a href="children-supported.html">Children Supported</a><a href="healthcare-access.html">Healthcare Access</a><a href="outreach.html">Community Outreach</a></div>
+            <div class="mega-col"><h4>RESEARCH & RESOURCES</h4><a href="awareness-research.html">Congenital Conditions Awareness</a><a href="inclusion-resources.html">Disability Inclusion Resources</a><a href="guides.html">Family Support Guides</a></div>
+            <div class="mega-col"><h4>MONITORING</h4><a href="impact-reports.html">Impact Reports</a><a href="case-studies.html">Case Studies</a><a href="success-stories.html">Success Stories</a></div>
           </div>
         </div>
       </li>
@@ -699,25 +685,9 @@
         <a href="#" class="nav-link-with-arrow">Stories <span class="dropdown-arrow">▼</span></a>
         <div class="mega-dropdown">
           <div class="mega-container">
-            <div class="mega-col">
-              <h4>LATEST STORIES</h4>
-              <a href="healing-journeys.html">Children’s Healing Journeys</a>
-              <a href="family-voices.html">Family Voices</a>
-              <a href="champions.html">Community Champions</a>
-              <a href="inclusion-stories.html">Disability Inclusion Stories</a>
-            </div>
-            <div class="mega-col">
-              <h4>OUR WORK</h4>
-              <a href="outreach-visits.html">Health Outreach Visits</a>
-              <a href="rehab-support.html">Rehabilitation Support</a>
-              <a href="hospital-partners.html">Hospital Partnerships</a>
-            </div>
-            <div class="mega-col">
-              <h4>NEWS & BLOG</h4>
-              <a href="updates.html">Updates & Announcements</a>
-              <a href="articles.html">Awareness Articles</a>
-              <a href="parent-education.html">Parent Education</a>
-            </div>
+            <div class="mega-col"><h4>LATEST STORIES</h4><a href="healing-journeys.html">Children’s Healing Journeys</a><a href="family-voices.html">Family Voices</a><a href="champions.html">Community Champions</a><a href="inclusion-stories.html">Disability Inclusion Stories</a></div>
+            <div class="mega-col"><h4>OUR WORK</h4><a href="outreach-visits.html">Health Outreach Visits</a><a href="rehab-support.html">Rehabilitation Support</a><a href="hospital-partners.html">Hospital Partnerships</a></div>
+            <div class="mega-col"><h4>NEWS & BLOG</h4><a href="updates.html">Updates & Announcements</a><a href="articles.html">Awareness Articles</a><a href="parent-education.html">Parent Education</a></div>
           </div>
         </div>
       </li>
@@ -725,23 +695,9 @@
         <a href="#" class="nav-link-with-arrow">News <span class="dropdown-arrow">▼</span></a>
         <div class="mega-dropdown">
           <div class="mega-container">
-            <div class="mega-col">
-              <h4>MEDIA & UPDATES</h4>
-              <a href="press.html">Press Releases</a>
-              <a href="events.html">Events & Campaigns</a>
-              <a href="outreach-updates.html">Community Outreach Updates</a>
-            </div>
-            <div class="mega-col">
-              <h4>ANNOUNCEMENTS</h4>
-              <a href="new-partnerships.html">New Partnerships</a>
-              <a href="volunteer.html">Volunteer Opportunities</a>
-              <a href="support-donations.html">Support & Donations</a>
-            </div>
-            <div class="mega-col">
-              <h4>NEWSLETTER</h4>
-              <a href="subscribe.html">Subscribe for Updates</a>
-              <a href="previous-updates.html">Previous Updates</a>
-            </div>
+            <div class="mega-col"><h4>MEDIA & UPDATES</h4><a href="press.html">Press Releases</a><a href="events.html">Events & Campaigns</a><a href="outreach-updates.html">Community Outreach Updates</a></div>
+            <div class="mega-col"><h4>ANNOUNCEMENTS</h4><a href="new-partnerships.html">New Partnerships</a><a href="volunteer.html">Volunteer Opportunities</a><a href="support-donations.html">Support & Donations</a></div>
+            <div class="mega-col"><h4>NEWSLETTER</h4><a href="subscribe.html">Subscribe for Updates</a><a href="previous-updates.html">Previous Updates</a></div>
           </div>
         </div>
       </li>
@@ -850,12 +806,57 @@
 </footer>
 
 <script>
-  // ===== MOBILE MENU =====
+  // ===== MOBILE MENU TOGGLE =====
   const mobileBtn = document.getElementById('mobileMenuBtn');
   const navMenu = document.getElementById('navMenu');
+  const isMobileQuery = () => window.innerWidth <= 900;
+
   if (mobileBtn) {
-    mobileBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
+    mobileBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('active');
+      this.textContent = isOpen ? '✕' : '☰';
+    });
   }
+
+  // ===== MOBILE DROPDOWN: tap nav links with arrows to open/close =====
+  document.querySelectorAll('.nav-item').forEach(function(item) {
+    const trigger = item.querySelector('.nav-link-with-arrow');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', function(e) {
+      if (!isMobileQuery()) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = item.classList.contains('mobile-open');
+      document.querySelectorAll('.nav-item.mobile-open').forEach(function(openItem) {
+        if (openItem !== item) openItem.classList.remove('mobile-open');
+      });
+      item.classList.toggle('mobile-open', !isOpen);
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!navMenu) return;
+    if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+      navMenu.classList.remove('active');
+      if (mobileBtn) mobileBtn.textContent = '☰';
+      document.querySelectorAll('.nav-item.mobile-open').forEach(function(item) {
+        item.classList.remove('mobile-open');
+      });
+    }
+  });
+
+  window.addEventListener('resize', function() {
+    if (!isMobileQuery()) {
+      if (navMenu) navMenu.classList.remove('active');
+      if (mobileBtn) mobileBtn.textContent = '☰';
+      document.querySelectorAll('.nav-item.mobile-open').forEach(function(item) {
+        item.classList.remove('mobile-open');
+      });
+    }
+  });
 
   // ===== NAVBAR HIDE ON SCROLL =====
   let lastScrollY = window.scrollY;
@@ -885,18 +886,10 @@
     subscribeBtn.addEventListener('click', () => {
       const email = newsletterEmail.value.trim();
       if (email) {
+        alert(`Thanks for subscribing! (${email})`);
         newsletterEmail.value = '';
-        const btn = subscribeBtn;
-        const originalText = btn.textContent;
-        btn.textContent = '✓ Subscribed!';
-        setTimeout(() => {
-          btn.textContent = originalText;
-        }, 2000);
       } else {
-        newsletterEmail.style.border = '1px solid #f9b81b';
-        setTimeout(() => {
-          newsletterEmail.style.border = '';
-        }, 2000);
+        alert('Please enter your email address');
       }
     });
   }
