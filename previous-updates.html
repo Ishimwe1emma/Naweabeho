@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Previous Updates | Nawe Abeho Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #111111; scroll-behavior: smooth; line-height: 1.5; overflow-x: hidden; }
+    :root {
+      --dark: #0a0a0c; --dark-soft: #1a1a1e; --white: #ffffff; --off-white: #f9f9f9;
+      --accent: #f9b81b; --accent-dark: #e09d0e; --gray-light: #f2f2f2;
+      --shadow-sm: 0 12px 28px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+      --shadow-hover: 0 24px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 768px) { .container { padding: 0 20px; } }
+    
+    .donate-fixed { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 1002; background: var(--accent); color: #000; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: 1rem; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.2); transition: all 0.25s ease; cursor: pointer; border: 2px solid rgba(255,255,255,0.3); backdrop-filter: blur(2px); line-height: 1.2; padding: 0 8px; }
+    .donate-fixed:hover { transform: translateY(-50%) scale(1.08); background: #e0a800; }
+    @media (max-width: 768px) { .donate-fixed { width: 56px; height: 56px; right: 16px; font-size: 0.8rem; } }
+    
+    /* ===== FULLY RESPONSIVE NAVBAR ===== */
+    .navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: #0a0a0c; transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); transform: translateY(0); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .navbar.hidden { transform: translateY(-100%); }
+    .nav-container { width: 100%; max-width: 1600px; margin: 0 auto; padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; position: relative; }
+    @media (max-width: 900px) { .nav-container { padding: 14px 24px; } }
+    .logo { font-size: 1.9rem; font-weight: 800; letter-spacing: 1.5px; color: white; text-decoration: none; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-start; line-height: 1; }
+    .logo span { color: var(--accent); }
+    @media (max-width: 900px) { .logo { font-size: 1.5rem; white-space: normal; } }
+    .nav-menu { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-item { position: static; }
+    .nav-link-with-arrow { color: white; text-decoration: none; font-weight: 600; font-size: 1rem; transition: color 0.2s ease; padding: 7px 0; display: inline-flex; align-items: center; gap: 6px; }
+    .nav-link-with-arrow:hover { color: var(--accent); }
+    .dropdown-arrow { font-size: 0.7rem; transition: transform 0.2s ease; display: inline-block; }
+    .nav-item:hover .dropdown-arrow { transform: rotate(180deg); }
+    .btn-outline-light-nav { background: transparent; border: 1.5px solid rgba(255,255,255,0.7); color: white; padding: 6px 18px; border-radius: 40px; font-weight: 600; transition: 0.2s; margin-left: 8px; text-decoration: none; }
+    .btn-outline-light-nav:hover { background: white; color: black; border-color: white; }
+    .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: white; background: none; border: none; }
+    
+    /* MEGA DROPDOWN DESKTOP */
+    .mega-dropdown { position: absolute; top: 100%; left: 0; width: 100%; background: #111115; background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(12px); border-top: 1px solid rgba(249,184,27,0.2); border-bottom: 1px solid rgba(249,184,27,0.2); opacity: 0; visibility: hidden; transform: translateY(-15px); transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); z-index: 1001; box-shadow: 0 25px 40px -12px rgba(0,0,0,0.4); }
+    .nav-item:hover .mega-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .mega-container { max-width: 1400px; margin: 0 auto; padding: 40px 40px; display: flex; flex-direction: row; gap: 3rem; flex-wrap: nowrap; justify-content: flex-start; align-items: flex-start; }
+    @media (max-width: 1100px) { .mega-container { flex-wrap: wrap; gap: 2rem; } .mega-col { min-width: 180px; } .mega-col a { white-space: normal; } .mega-col h4 { white-space: normal; } }
+    .mega-col { flex: 0 0 auto; min-width: 200px; display: flex; flex-direction: column; align-items: flex-start; }
+    .mega-col h4 { color: var(--accent); font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; font-weight: 700; white-space: nowrap; }
+    .mega-col a { display: flex; align-items: center; gap: 8px; color: #ddd; text-decoration: none; font-size: 0.9rem; padding: 8px 0; transition: all 0.2s; white-space: nowrap; position: relative; }
+    .mega-col a::before { content: "✓"; color: var(--accent); font-size: 0.85rem; font-weight: bold; opacity: 0; transform: translateX(-8px); transition: all 0.2s ease; display: inline-block; width: 18px; }
+    .mega-col a:hover::before { opacity: 1; transform: translateX(0); }
+    .mega-col a:hover { color: var(--accent); transform: translateX(5px); }
+    .mega-feature { background: rgba(249,184,27,0.08); border-radius: 16px; padding: 20px; margin-top: 10px; white-space: normal; }
+    .mega-feature p { color: #ccc; font-size: 0.85rem; white-space: normal; }
+    
+    /* ===== MOBILE RESPONSIVE DROPDOWN FIXES ===== */
+    @media (max-width: 900px) {
+      .menu-toggle { display: block; z-index: 1002; }
+      .nav-menu { position: fixed; left: -100%; top: 70px; flex-direction: column; background: #0a0a0c; width: 100%; height: calc(100vh - 70px); overflow-y: auto; text-align: left; transition: 0.3s ease-in-out; padding: 0 0 2rem 0; gap: 0; z-index: 999; display: flex; }
+      .nav-menu.active { left: 0; }
+      .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; }
+      .nav-item:hover .mega-dropdown { opacity: 0; visibility: hidden; transform: translateY(-15px); }
+      .nav-link-with-arrow { padding: 16px 24px; width: 100%; justify-content: space-between; font-size: 1rem; display: flex; }
+      .mega-dropdown { position: static; width: 100%; opacity: 0; visibility: hidden; transform: none !important; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.25s ease; background: rgba(255,255,255,0.04); backdrop-filter: none; border: none; box-shadow: none; display: block; }
+      .nav-item.mobile-open .mega-dropdown { opacity: 1; visibility: visible; max-height: 1000px; }
+      .nav-item.mobile-open .dropdown-arrow { transform: rotate(180deg); }
+      .mega-container { flex-direction: column; padding: 0; gap: 0; }
+      .mega-col { padding: 0; border-bottom: 1px solid rgba(255,255,255,0.05); width: 100%; min-width: unset; }
+      .mega-col h4 { padding: 12px 24px; margin-bottom: 0; background: rgba(0,0,0,0.3); white-space: normal; font-size: 0.75rem; }
+      .mega-col a { padding: 11px 24px 11px 44px; white-space: normal; word-break: break-word; font-size: 0.88rem; }
+      .mega-col a::before { content: "→"; opacity: 1; transform: none; position: absolute; left: 24px; }
+      .mega-col a:hover { transform: none; color: var(--accent); }
+      .btn-outline-light-nav { display: block; text-align: center; margin: 16px 24px; padding: 12px; border-radius: 40px; }
+    }
+    
+    /* Hero Section */
+    .updates-hero {
+      background: linear-gradient(135deg, #0a0a0c 0%, #1a1a1e 100%);
+      padding: 160px 0 100px;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 80px;
+    }
+    .updates-hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 60%;
+      height: 140%;
+      background: radial-gradient(circle, rgba(249,184,27,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulseGlow 8s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(249,184,27,0.2);
+      backdrop-filter: blur(10px);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(249,184,27,0.4);
+      animation: fadeSlideUp 0.8s ease;
+    }
+    .updates-hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      animation: fadeSlideUp 0.8s ease 0.1s both;
+    }
+    .updates-hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeSlideUp 0.8s ease 0.2s both;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 900px) {
+      .updates-hero { margin-top: 70px; padding: 120px 0 60px; }
+      .updates-hero h1 { font-size: 2.5rem; }
+    }
+    
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 48px;
+      position: relative;
+      text-align: center;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 4px;
+      background: var(--accent);
+      margin-top: 12px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @media (max-width: 900px) { .section-title { font-size: 2rem; } }
+    
+    /* No Updates Card - Modern Empty State */
+    .no-updates-card {
+      background: white;
+      border-radius: 48px;
+      padding: 4rem 2rem;
+      margin: 60px auto;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: var(--shadow-hover);
+      border: 1px solid rgba(249,184,27,0.2);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .no-updates-card:hover {
+      transform: translateY(-8px);
+    }
+    .no-updates-card::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -20%;
+      width: 80%;
+      height: 150%;
+      background: radial-gradient(circle, rgba(249,184,27,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .empty-icon {
+      font-size: 5rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .no-updates-card h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .no-updates-card .message {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .no-updates-card .sub-message {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 2rem;
+    }
+    .notification-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(249,184,27,0.1);
+      padding: 10px 24px;
+      border-radius: 60px;
+      margin: 1rem auto;
+      width: fit-content;
+      border: 1px solid rgba(249,184,27,0.3);
+    }
+    .notification-badge i {
+      color: var(--accent);
+      font-size: 1rem;
+    }
+    .notification-badge span {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 12px 32px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+      margin-top: 1rem;
+    }
+    .btn-outline:hover {
+      background: var(--accent);
+      color: #000;
+      transform: translateY(-2px);
+    }
+    .btn-primary {
+      background-color: var(--accent);
+      color: #000;
+      border: none;
+      padding: 12px 32px;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background-color: #e0a800;
+      transform: translateY(-2px);
+    }
+    
+    /* Archives Info */
+    .archives-info {
+      padding: 60px 0;
+      background: var(--off-white);
+    }
+    .archives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .archive-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      transition: all 0.4s ease;
+      border: 1px solid #f0f0f0;
+      text-align: center;
+    }
+    .archive-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent);
+    }
+    .archive-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    .archive-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    .archive-card p {
+      color: #888;
+      font-size: 0.85rem;
+    }
+    
+    /* Newsletter Signup */
+    .newsletter-signup {
+      background: linear-gradient(135deg, #0a0a0c 0%, #1a1a1e 100%);
+      border-radius: 32px;
+      padding: 3rem;
+      text-align: center;
+      margin: 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-signup h3 { color: white; font-size: 1.6rem; margin-bottom: 1rem; }
+    .newsletter-signup p { color: rgba(255,255,255,0.8); margin-bottom: 1.5rem; }
+    .signup-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .signup-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 60px;
+      border: none;
+      font-size: 1rem;
+      min-width: 200px;
+    }
+    .signup-form button {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .signup-form button:hover { background: #e0a800; transform: translateY(-2px); }
+    
+    footer { background: var(--dark); color: #ccc; padding: 60px 0 30px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+    @media (max-width: 768px) { .footer-grid { gap: 2rem; } }
+    .footer-col h4 { color: white; font-weight: 700; margin-bottom: 1.2rem; }
+    .footer-col a { display: block; color: #bbb; text-decoration: none; margin-bottom: 12px; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent); }
+    .newsletter { background: #1e1e24; border-radius: 20px; padding: 24px; margin-top: 20px; }
+    .newsletter input { padding: 12px 16px; border-radius: 60px; border: none; width: 70%; margin-right: 8px; }
+    @media (max-width: 768px) { .newsletter input { width: 100%; margin-right: 0; margin-bottom: 10px; } .newsletter div { flex-direction: column; } }
+    .btn-small { background: var(--accent); border: none; padding: 12px 20px; border-radius: 60px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; }
+    .btn-small:hover { background: #e0a800; transform: scale(1.02); }
+    .copyright { text-align: center; border-top: 1px solid #2c2c34; padding-top: 2rem; font-size: 0.8rem; }
+    
+    .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<a href="donate.html" class="donate-fixed">DONATE</a>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <span style="font-size:1rem; font-weight:700; color:white;">Nawe <span style="color: var(--accent);">Abeho</span> Foundation</span>
+    </a>
+    <button class="menu-toggle" id="mobileMenuBtn">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">About <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>WHO WE ARE</h4><a href="mission.html">Our Mission</a><a href="team.html">Our Team & Board</a><a href="story.html">Our Story & Journey</a><a href="partners.html">Partners & Supporters</a></div><div class="mega-col"><h4>OUR COMMITMENT</h4><a href="health.html">Children’s Health & Care</a><a href="congenital.html">Congenital Conditions Support</a><a href="inclusion.html">Disability Inclusion</a><a href="family.html">Family Support & Counseling</a></div><div class="mega-col"><h4>TRANSPARENCY</h4><a href="reports.html">Annual Reports</a><a href="financial.html">Financial Statements</a><a href="policies.html">Policies & Guidelines</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Programs <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR PROGRAMS</h4><a href="medical.html">Medical Support & Referrals</a><a href="rehab.html">Rehabilitation Services</a><a href="education.html">Inclusive Education Support</a><a href="awareness.html">Community Awareness</a></div><div class="mega-col"><h4>FAMILY SERVICES</h4><a href="counseling.html">Parent Counseling</a><a href="nutrition.html">Nutrition & Growth Support</a><a href="psychosocial.html">Psychosocial Care</a></div><div class="mega-col"><h4>PARTNERSHIPS</h4><a href="hospitals.html">Hospitals & Specialists</a><a href="workers.html">Community Health Workers</a><a href="network.html">International Support Network</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Impact <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>OUR IMPACT</h4><a href="children-supported.html">Children Supported</a><a href="healthcare-access.html">Healthcare Access</a><a href="outreach.html">Community Outreach</a></div><div class="mega-col"><h4>RESEARCH & RESOURCES</h4><a href="awareness-research.html">Congenital Conditions Awareness</a><a href="inclusion-resources.html">Disability Inclusion Resources</a><a href="guides.html">Family Support Guides</a></div><div class="mega-col"><h4>MONITORING</h4><a href="impact-reports.html">Impact Reports</a><a href="case-studies.html">Case Studies</a><a href="success-stories.html">Success Stories</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">Stories <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>LATEST STORIES</h4><a href="healing-journeys.html">Children’s Healing Journeys</a><a href="family-voices.html">Family Voices</a><a href="champions.html">Community Champions</a><a href="inclusion-stories.html">Disability Inclusion Stories</a></div><div class="mega-col"><h4>OUR WORK</h4><a href="outreach-visits.html">Health Outreach Visits</a><a href="rehab-support.html">Rehabilitation Support</a><a href="hospital-partners.html">Hospital Partnerships</a></div><div class="mega-col"><h4>NEWS & BLOG</h4><a href="updates.html">Updates & Announcements</a><a href="articles.html">Awareness Articles</a><a href="parent-education.html">Parent Education</a></div></div></div></li>
+      <li class="nav-item"><a href="#" class="nav-link-with-arrow">News <span class="dropdown-arrow">▼</span></a><div class="mega-dropdown"><div class="mega-container"><div class="mega-col"><h4>MEDIA & UPDATES</h4><a href="press.html">Press Releases</a><a href="events.html">Events & Campaigns</a><a href="outreach-updates.html">Community Outreach Updates</a></div><div class="mega-col"><h4>ANNOUNCEMENTS</h4><a href="new-partnerships.html">New Partnerships</a><a href="volunteer.html">Volunteer Opportunities</a><a href="support-donations.html">Support & Donations</a></div><div class="mega-col"><h4>NEWSLETTER</h4><a href="subscribe.html">Subscribe for Updates</a><a href="previous-updates.html">Previous Updates</a></div></div></div></li>
+      <li><a href="contact.html" class="btn-outline-light-nav">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="updates-hero">
+  <div class="container">
+    <div class="hero-badge"><i class="fas fa-history"></i> Archive</div>
+    <h1>Previous Updates</h1>
+    <p>Browse through our past announcements, newsletters, and impact stories.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="no-updates-card fade-up">
+    <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+    <div class="notification-badge">
+      <i class="fas fa-info-circle"></i>
+      <span>Archive Status</span>
+    </div>
+    <h2>No New Updates Available</h2>
+    <p class="message">We're currently preparing fresh content and updates to share with our community.</p>
+    <p class="sub-message">Previous updates will be archived here as they become available. Please check back soon for new stories, announcements, and impact reports.</p>
+    <a href="subscribe.html" class="btn-outline"><i class="fas fa-bell"></i> Get Notified When Updates Arrive</a>
+  </div>
+</div>
+
+<div class="archives-info">
+  <div class="container">
+    <h2 class="section-title fade-up">Update Categories</h2>
+    <div class="archives-grid">
+      <div class="archive-card fade-up"><div class="archive-icon"><i class="fas fa-newspaper"></i></div><h3>News & Announcements</h3><p>Latest foundation news and updates</p></div>
+      <div class="archive-card fade-up"><div class="archive-icon"><i class="fas fa-calendar-alt"></i></div><h3>Event Recaps</h3><p>Past events and campaign summaries</p></div>
+      <div class="archive-card fade-up"><div class="archive-icon"><i class="fas fa-chart-line"></i></div><h3>Impact Reports</h3><p>Quarterly and annual impact summaries</p></div>
+      <div class="archive-card fade-up"><div class="archive-icon"><i class="fas fa-handshake"></i></div><h3>Partnership News</h3><p>New collaborations and supporter updates</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="newsletter-signup fade-up">
+    <h3><i class="fas fa-envelope"></i> Get Future Updates</h3>
+    <p>Subscribe to our newsletter to receive updates directly in your inbox when new content is published.</p>
+    <div class="signup-form">
+      <input type="email" id="updatesNewsletterEmail" placeholder="Your email address">
+      <button id="updatesSubscribeBtn">Subscribe →</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h4>About</h4><a href="mission.html">Our mission</a><a href="team.html">Our leadership</a><a href="volunteer.html">Volunteer opportunities</a><a href="press.html">Media & press</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="faq.html">FAQs</a><a href="reports.html">Reports & publications</a><a href="policies.html">Policies</a><a href="guides.html">Caregiver support guide</a></div>
+      <div class="footer-col"><h4>Partners</h4><a href="partners.html">Become a partner</a><a href="medical-partners.html">Medical partnerships</a><a href="donor.html">Donor engagement</a></div>
+      <div class="footer-col"><h4>Connect</h4><a href="contact.html">Contact us</a><a href="events.html">Events & outreach</a><a href="#">YouTube</a><a href="#">LinkedIn</a></div>
+    </div>
+    <div class="newsletter">
+      <h4 style="color:white;">Stay Connected</h4>
+      <p style="margin-bottom: 16px;">Subscribe to receive updates about our programs, outreach campaigns, and ways to support children.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <input type="email" id="footerNewsletterEmail" placeholder="Your email address">
+        <button class="btn-small" id="footerSubscribeBtn">Subscribe →</button>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>© 2026 Nawe Abeho Foundation. All Rights Reserved. | We never ask for money through unofficial channels — report suspicious activity.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== MOBILE MENU TOGGLE =====
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navMenu = document.getElementById('navMenu');
+  const isMobileQuery = () => window.innerWidth <= 900;
+
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('active');
+      this.textContent = isOpen ? '✕' : '☰';
+    });
+  }
+
+  // ===== MOBILE DROPDOWN =====
+  document.querySelectorAll('.nav-item').forEach(function(item) {
+    const trigger = item.querySelector('.nav-link-with-arrow');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', function(e) {
+      if (!isMobileQuery()) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = item.classList.contains('mobile-open');
+      document.querySelectorAll('.nav-item.mobile-open').forEach(function(openItem) {
+        if (openItem !== item) openItem.classList.remove('mobile-open');
+      });
+      item.classList.toggle('mobile-open', !isOpen);
+    });
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!navMenu) return;
+    if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+      navMenu.classList.remove('active');
+      if (mobileBtn) mobileBtn.textContent = '☰';
+      document.querySelectorAll('.nav-item.mobile-open').forEach(function(item) {
+        item.classList.remove('mobile-open');
+      });
+    }
+  });
+
+  window.addEventListener('resize', function() {
+    if (!isMobileQuery()) {
+      if (navMenu) navMenu.classList.remove('active');
+      if (mobileBtn) mobileBtn.textContent = '☰';
+      document.querySelectorAll('.nav-item.mobile-open').forEach(function(item) {
+        item.classList.remove('mobile-open');
+      });
+    }
+  });
+
+  // ===== NAVBAR HIDE ON SCROLL =====
+  let lastScrollY = window.scrollY;
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentScrollY > 80) {
+      navbar.classList.add('hidden');
+    } else {
+      navbar.classList.remove('hidden');
+    }
+    lastScrollY = currentScrollY;
+  });
+
+  // ===== SCROLL ANIMATION OBSERVER =====
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  fadeElements.forEach(el => observer.observe(el));
+  
+  // ===== UPDATES NEWSLETTER SUBSCRIBE =====
+  const updatesSubscribeBtn = document.getElementById('updatesSubscribeBtn');
+  const updatesNewsletterEmail = document.getElementById('updatesNewsletterEmail');
+  if (updatesSubscribeBtn) {
+    updatesSubscribeBtn.addEventListener('click', function() {
+      const email = updatesNewsletterEmail.value.trim();
+      if (email) {
+        alert(`Thanks for subscribing! We'll notify you at ${email} when new updates become available.`);
+        updatesNewsletterEmail.value = '';
+      } else {
+        alert('Please enter your email address');
+      }
+    });
+  }
+  
+  // ===== FOOTER SUBSCRIBE =====
+  const footerSubscribeBtn = document.getElementById('footerSubscribeBtn');
+  const footerNewsletterEmail = document.getElementById('footerNewsletterEmail');
+  if (footerSubscribeBtn) {
+    footerSubscribeBtn.addEventListener('click', function() {
+      const email = footerNewsletterEmail.value.trim();
+      if (email) {
+        alert(`Thanks for subscribing! (${email})`);
+        footerNewsletterEmail.value = '';
+      } else {
+        alert('Please enter your email address');
+      }
+    });
+  }
+</script>
+</body>
+</html>
